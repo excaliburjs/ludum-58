@@ -18,10 +18,10 @@
 * [x] Implement collectables
 * [x] Implement return collectables to surface
 * [x] Add Number GO UP UI
-* Add Enemies that increase in frequences
-* Add Proc Gen chunks
-* Add fighting certain enemies
-* Add touch controls
+* [ ] Add Enemies that increase in frequences
+* [ ] Add Proc Gen chunks
+* [ ] Add fighting certain enemies
+* [ ] Add touch controls
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
 * Art: Dirt Variety

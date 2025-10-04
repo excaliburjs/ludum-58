@@ -20,6 +20,7 @@ export class Player extends Actor {
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
   score: number = 0;
+  invincible: boolean = false;
   constructor(public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
@@ -81,6 +82,35 @@ export class Player extends Actor {
           loot.kill();
         });
     }
+  }
+
+  takeDamage() {
+    if (this.invincible) return;
+
+    this.invincible = true;
+    this.actions.flash(Color.White, 500).callMethod(() => {
+      this.invincible = false;
+    });
+  }
+
+  dropPendingLoot() {
+    if (this.invincible) return;
+
+    const slice = (2* Math.PI) / this.pendingLoot.length;
+    let dir = 0;
+    for (let loot of this.pendingLoot) {
+      loot.actions
+        .moveTo({
+          pos: vec(Math.cos(dir) * 100, Math.sin(dir) * 100),
+          easing: EasingFunctions.EaseInOutCubic,
+          duration: 200
+        }).callMethod(() => {
+          loot.kill();
+        });
+
+      dir += slice;
+    }
+    this.pendingLoot.length = 0;
   }
 
   moveInDirection(direction: Vector) {

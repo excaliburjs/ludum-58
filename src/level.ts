@@ -2,6 +2,7 @@ import { CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Labe
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
 import { soundManager } from "./sound-manager-2";
+import { Enemy } from "./enemy";
 
 export class DigLevel extends Scene {
   public random = new Random(1337);
@@ -9,13 +10,21 @@ export class DigLevel extends Scene {
   public player!: Player;
   override onInitialize(engine: Engine): void {
 
-    this.camera.pos = engine.screen.center;
-
     const groundGenerator = new GroundGenerator(this, this.random);
     groundGenerator.generate();
+
     const player = new Player(5, 0, groundGenerator, this.random);
     this.player = player;
-    this.add(player); // Actors need to be added to a scene to be drawn
+    this.add(player); 
+
+
+    const beetle = new Enemy(5, 3, 'beetle', player, groundGenerator, this.random);
+    this.add(beetle);
+
+    const beetle2 = new Enemy(6, 22, 'beetle', player, groundGenerator, this.random);
+    this.add(beetle2);
+
+    this.camera.pos = engine.screen.center;
     this.camera.strategy.elasticToActor(player, .5, .5);
 
     soundManager.play("music1");
