@@ -4,6 +4,8 @@ import { GroundGenerator } from "./ground";
 
 export class DigLevel extends Scene {
   override onInitialize(engine: Engine): void {
+
+    this.camera.pos = engine.screen.center;
     // Scene.onInitialize is where we recommend you perform the composition for your game
     const player = new Player();
     this.add(player); // Actors need to be added to a scene to be drawn

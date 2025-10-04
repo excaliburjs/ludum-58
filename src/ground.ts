@@ -1,10 +1,11 @@
-import { Scene, Sprite, TileMap } from "excalibur";
+import { Scene, Sprite, TileMap, vec } from "excalibur";
 import { Resources } from "./resources";
 
 
 export class GroundGenerator {
 
   startChunk = new TileMap({
+    pos: vec(0, 64 * 5),
     tileWidth: 64,
     tileHeight: 64,
     rows: 200,
@@ -22,7 +23,7 @@ export class GroundGenerator {
     for (let i = 0; i < this.startChunk.tiles.length; i++) {
       const tile = this.startChunk.tiles[i];
       tile.addGraphic(this.dirtFront);
-
+      tile.solid = true;
     }
   }
 }

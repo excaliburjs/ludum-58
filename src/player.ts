@@ -1,4 +1,4 @@
-import { Actor, Collider, CollisionContact, Color, Engine, Side, vec } from "excalibur";
+import { Actor, Collider, CollisionContact, CollisionType, Color, Engine, Side, vec } from "excalibur";
 import { Resources } from "./resources";
 
 // Actors are the main unit of composition you'll likely use, anything that you want to draw and move around the screen
@@ -26,9 +26,10 @@ export class Player extends Actor {
       width: 64,
       height: 64,
       color: Color.Blue,
-      z: 10
+      z: 10,
       // anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
-      // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
+      collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
+      acc: vec(0, 400)
     });
     
   }
