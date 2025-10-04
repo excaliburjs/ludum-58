@@ -22,17 +22,18 @@
   "bugs": {},
   "homepage": "",
   "dependencies": {
-    "excalibur": "0.31.0",
     "classnames": "2.5.1",
+    "excalibur": "0.31.0",
     "store": "2.0.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
     "@types/node": "^22.10.2",
-    "typescript": "5.9.3",
-    "vite": "6.3.6",
     "@types/storejs": "2.0.3",
     "@types/zepto": "1.0.36",
-    "posthtml-expressions": "1.11.3"
+    "@vituum/vite-plugin-posthtml": "1.1.0",
+    "posthtml-expressions": "1.11.3",
+    "typescript": "5.9.3",
+    "vite": "6.3.6"
   }
 }
