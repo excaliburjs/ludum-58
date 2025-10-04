@@ -71,7 +71,7 @@ export class Enemy extends Actor {
           futureTile.pos.add(vec(32, 32)),
           500,
           EasingFunctions.EaseInOutCubic
-        ).callMethod(() => {
+        ).delay(1000).callMethod(() => {
           this.moving = false;
           const tile = this.ground.getTile(this.tileX, this.tileY);
           tile?.data.set('enemy', this);

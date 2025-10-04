@@ -169,10 +169,8 @@ export class Player extends Actor {
       maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);
       maybeLoot.playPickup();
 
-      
-
       maybeLoot.actions.moveTo({
-        pos: vec(100 + this.random.integer(-5, 5), 100 + this.random.integer(-5, 5)),
+        pos: vec(100 + this.random.integer(-15, 15), 100 + this.random.integer(-15, 15)),
         easing: EasingFunctions.EaseInOutCubic,
         duration: 1000
       }).callMethod(() => {

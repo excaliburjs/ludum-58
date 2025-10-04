@@ -18,6 +18,7 @@
 * [x] Implement collectables
 * [x] Implement return collectables to surface
 * [x] Add Number GO UP UI
+* [ ] Gem Capacity forcing you to return quickly
 * [ ] Add Enemies that increase in frequences
 * [ ] Add Proc Gen chunks
 * [ ] Add fighting certain enemies
@@ -29,8 +30,7 @@
 * Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 
 ### Stretch Goals
-* Rewards for collecting: Upgrade you speed, pick, mining, defense, etc
-* 
+* Rewards for collecting: Upgrade you speed, pick, mining, capacity, defense, etc
 
 ```sh
 npm create excalibur
