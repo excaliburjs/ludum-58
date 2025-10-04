@@ -41,13 +41,19 @@ export class GroundGenerator {
   }
 
   generateCollectables(x: number, y: number) {
+
+    const tile = this.getTile(x, y);
+    if (tile?.data.get('loot')) return;
+
     const ran = this.random.next();
-    const depthBonus = (y > 10) ? (y  / this.worldHeight) / 100 : 0;
+    const depthBonus = (y > 10) ? (y / this.worldHeight) / 100 : 0;
 
     for (let loot in Config.LootPercent) {
       if (loot in Config.LootPercent) {
-        if ((1.0 - (Config.LootPercent as any)[loot as string] - depthBonus)  < ran) {
-            this.scene.add(new Collectable(x, y, loot as any, this));
+        if ((1.0 - (Config.LootPercent as any)[loot as string] - depthBonus) < ran) {
+          const lootable = new Collectable(x, y, loot as any, this);
+          this.scene.add(lootable);
+          break;
         }
       }
     }

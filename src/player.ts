@@ -11,10 +11,13 @@ import {
   Vector
 } from "excalibur";
 import { GroundGenerator } from "./ground";
+import { Collectable } from "./collectable";
 
 export class Player extends Actor {
   dir: ex.Vector = Vector.Right;
   moving: boolean = false;
+  pendingLoot: Collectable[] = [];
+  score: number = 0;
   constructor(public tileX: number, public tileY: number, public ground: GroundGenerator) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
@@ -91,6 +94,18 @@ export class Player extends Actor {
           EasingFunctions.EaseInOutCubic
         ).callMethod(() => {
           this.moving = false;
+          const maybeLoot = futureTile.data.get('loot');
+          if (maybeLoot instanceof Collectable) {
+            this.pendingLoot.push(maybeLoot);
+
+            maybeLoot.actions.moveBy({
+              offset: vec(-100, -100),
+              easing: EasingFunctions.EaseInOutCubic,
+              duration: 1000
+            }).callMethod(() => {
+              maybeLoot.graphics.isVisible = false;
+            });
+          }
         });
     }
     // else {
