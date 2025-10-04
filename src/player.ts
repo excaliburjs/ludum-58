@@ -67,6 +67,19 @@ export class Player extends Actor {
     });
   }
 
+  scorePendingLoot() {
+    let delay = 0;
+    for (let loot of this.pendingLoot) {
+      loot.actions.delay(delay+=40).moveTo({ 
+        pos: vec(this.scene!.engine.screen.width, 100),
+        easing: EasingFunctions.EaseInOutCubic,
+        duration: 200
+      });
+
+    }
+
+  }
+
   moveInDirection(direction: Vector) {
     const newTileCoord = direction.add(vec(this.tileX, this.tileY));
     const futureTile = this.ground.getTile(newTileCoord.x, newTileCoord.y);
@@ -84,9 +97,13 @@ export class Player extends Actor {
       this.tileX = futureTile.x;
       this.tileY = futureTile.y;
 
+
+
+
       const maybeLoot = futureTile.data.get('loot');
       if (maybeLoot instanceof Collectable) {
         this.pendingLoot.push(maybeLoot);
+        futureTile.data.delete('loot');
         const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos.add(direction.scale(16)));
         maybeLoot.transform.coordPlane = CoordPlane.Screen;
         maybeLoot.transform.pos = screenPos;
@@ -113,6 +130,10 @@ export class Player extends Actor {
           EasingFunctions.EaseInOutCubic
         ).callMethod(() => {
           this.moving = false;
+
+          if (this.tileY === 0 && this.pendingLoot.length > 0) {
+            this.scorePendingLoot();
+          }
         });
     }
     // else {
