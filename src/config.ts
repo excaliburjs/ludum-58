@@ -5,9 +5,9 @@ export default {
   BackgroundMusicVolume: 0.5,
 
   LootPercent: {
-    Green:    .01,
+    Green:     .1,
     Blue:     .05,
-    Red:     .009,
+    Red:     .005,
     Silver: .0005,
     Gold:   .0009,
   },

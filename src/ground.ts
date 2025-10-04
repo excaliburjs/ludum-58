@@ -42,11 +42,11 @@ export class GroundGenerator {
 
   generateCollectables(x: number, y: number) {
     const ran = this.random.next();
-    const depthBonus = (y > 10) ? (y  / this.worldHeight) : 0;
+    const depthBonus = (y > 10) ? (y  / this.worldHeight) / 100 : 0;
 
     for (let loot in Config.LootPercent) {
       if (loot in Config.LootPercent) {
-        if ((1.0 - (Config.LootPercent as any)[loot as string]) < Math.max(ran, depthBonus)) {
+        if ((1.0 - (Config.LootPercent as any)[loot as string] - depthBonus)  < ran) {
             this.scene.add(new Collectable(x, y, loot as any, this));
         }
       }
