@@ -21,7 +21,7 @@
 * [ ] Add Enemies that increase in frequences
 * [ ] Add Proc Gen chunks
 * [ ] Add fighting certain enemies
-* [ ] Add touch controls
+* [x] Add touch controls
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
 * Art: Dirt Variety

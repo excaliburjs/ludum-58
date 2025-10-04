@@ -54,10 +54,10 @@ export class Player extends Actor {
     this.addChild(this.up);
     this.addChild(this.down);
 
-    this.left.on('pointerdown', () => this.moveInDirection(Vector.Left));
+    this.left.on('pointerdown',  () => this.moveInDirection(Vector.Left));
     this.right.on('pointerdown', () => this.moveInDirection(Vector.Right));
-    this.up.on('pointerdown', () => this.moveInDirection(Vector.Up));
-    this.down.on('pointerdown', () => this.moveInDirection(Vector.Down));
+    this.up.on('pointerdown',    () => this.moveInDirection(Vector.Up));
+    this.down.on('pointerdown',  () => this.moveInDirection(Vector.Down));
 
     engine.input.keyboard.on("hold", (evt) => {
       let dir = Vector.Down;
