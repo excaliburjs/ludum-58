@@ -1,17 +1,15 @@
 import { ImageSource, Loader, Sound } from "excalibur";
 
-import swordPng from './images/template-sample-image-sword.png';
-import projectileMp3 from './sounds/template-sample-sound-projectile.mp3';
-
+// It is convenient to put your resources in one place
 export const Resources = {
-    Sword: new ImageSource(swordPng),
-    ProjectileSound: new Sound(projectileMp3)
-} as const;
+  Sword: new ImageSource("./images/sword.png"), // Vite public/ directory serves the root images
+  Projectile: new Sound('./sounds/template-sample-sound-projectile.mp3')
+} as const; // the 'as const' is a neat typescript trick to get strong typing on your resources. 
+// So when you type Resources.Sword -> ImageSource
 
+// We build a loader and add all of our resources to the boot loader
+// You can build your own loader by extending DefaultLoader
 export const loader = new Loader();
-
-for (let res of Object.values(Resources)) {
-    loader.addResource(res);
+for (const res of Object.values(Resources)) {
+  loader.addResource(res);
 }
-
-
