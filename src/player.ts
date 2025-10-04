@@ -1,66 +1,103 @@
-import { Actor, Collider, CollisionContact, CollisionType, Color, Engine, Side, vec } from "excalibur";
-import { Resources } from "./resources";
-
-// Actors are the main unit of composition you'll likely use, anything that you want to draw and move around the screen
-// is likely built with an actor
-
-// They contain a bunch of useful components that you might use
-// actor.transform
-// actor.motion
-// actor.graphics
-// actor.body
-// actor.collider
-// actor.actions
-// actor.pointer
-
+import {
+  Actor,
+  Collider,
+  CollisionContact,
+  Color,
+  EasingFunctions,
+  Engine,
+  Keys,
+  Side,
+  vec,
+  Vector
+} from "excalibur";
+import { GroundGenerator } from "./ground";
 
 export class Player extends Actor {
-  constructor() {
+  dir: ex.Vector = Vector.Right;
+  moving: boolean = false;
+  constructor(public tileX: number, public tileY: number, public ground: GroundGenerator) {
+    const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
-      // Giving your actor a name is optional, but helps in debugging using the dev tools or debug mode
-      // https://github.com/excaliburjs/excalibur-extension/
-      // Chrome: https://chromewebstore.google.com/detail/excalibur-dev-tools/dinddaeielhddflijbbcmpefamfffekc
-      // Firefox: https://addons.mozilla.org/en-US/firefox/addon/excalibur-dev-tools/
       name: 'Player',
-      pos: vec(150, 150),
+      pos: worldPosFromTile,
       width: 64,
       height: 64,
       color: Color.Blue,
       z: 10,
-      // anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
-      collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
-      acc: vec(0, 400)
+      anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
+      // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
+      // acc: vec(0, 400)
     });
-    
   }
 
-  override onInitialize() {
-    // Generally recommended to stick logic in the "On initialize"
-    // This runs before the first update
-    // Useful when
-    // 1. You need things to be loaded like Images for graphics
-    // 2. You need excalibur to be initialized & started 
-    // 3. Deferring logic to run time instead of constructor time
-    // 4. Lazy instantiation
-    // this.graphics.add(Resources.Sword.toSprite());
+  override onInitialize(engine: Engine) {
+    engine.input.keyboard.on("hold", (evt) => {
+      let dir = Vector.Down;
+      switch (evt.key) {
+        case Keys.A:
+        case Keys.Left:
+        case Keys.H:
+          dir = Vector.Left;
+          break;
+        case Keys.D:
+        case Keys.Right:
+        case Keys.L:
+          dir = Vector.Right;
+          break;
+        case Keys.S:
+        case Keys.Down:
+        case Keys.J:
+          dir = Vector.Down;
+          break;
+        case Keys.W:
+        case Keys.Up:
+        case Keys.K:
+          dir = Vector.Up;
+          break;
+        default:
+          return;
+      }
+      this.dir = dir;
+      this.moveInDirection(dir);
+    });
+  }
 
-    // Actions are useful for scripting common behavior, for example patrolling enemies
-    // this.actions.delay(2000);
-    // this.actions.repeatForever(ctx => {
-    //   ctx.moveBy({offset: vec(100, 0), duration: 1000});
-    //   ctx.moveBy({offset: vec(0, 100), duration: 1000});
-    //   ctx.moveBy({offset: vec(-100, 0), duration: 1000});
-    //   ctx.moveBy({offset: vec(0, -100), duration: 1000});
-    // });
-    //
-    // // Sometimes you want to click on an actor!
-    // this.on('pointerdown', evt => {
-    //   // Pointer events tunnel in z order from the screen down, you can cancel them!
-    //   // if (true) {
-    //   //   evt.cancel();
-    //   // }
-    //   console.log('You clicked the actor @', evt.worldPos.toString());
-    // });
+  moveInDirection(direction: Vector) {
+    const newTileCoord = direction.add(vec(this.tileX, this.tileY));
+    const futureTile = this.ground.getTile(newTileCoord.x, newTileCoord.y);
+
+    // If the tile is off grid don't move
+    if (futureTile) {
+      if (!this.moving) {
+        this.moving = true;
+      } else {
+        return;
+      }
+      // Resources.DigSound.play();
+      // this.grid.digTile(futureTile.x, futureTile.y);
+      // Tile x,y are the tile coordinates
+      this.tileX = futureTile.x;
+      this.tileY = futureTile.y;
+
+      this.actions
+        // .rotateTo(
+        // Math.atan2(direction.y, direction.x),
+        // Math.PI * 4,
+        // RotationType.ShortestPath)
+        .easeTo(
+          // Tile pos is the world pixel position of the tile
+          futureTile.pos,
+          500,
+          EasingFunctions.EaseInOutCubic
+        ).callMethod(() => {
+          this.moving = false;
+        });
+    }
+    // else {
+    //   if (!Resources.ClankSound.isPlaying() && !this.moving) {
+    //     Resources.ClankSound.play();
+    //   }
+    // }
   }
 
   override onPreUpdate(engine: Engine, elapsedMs: number): void {

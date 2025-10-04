@@ -6,12 +6,12 @@ export class DigLevel extends Scene {
   override onInitialize(engine: Engine): void {
 
     this.camera.pos = engine.screen.center;
-    // Scene.onInitialize is where we recommend you perform the composition for your game
-    const player = new Player();
-    this.add(player); // Actors need to be added to a scene to be drawn
 
     const groundGenerator = new GroundGenerator(this);
     groundGenerator.generate();
+    const player = new Player(5, 0, groundGenerator);
+    this.add(player); // Actors need to be added to a scene to be drawn
+
   }
 
   override onPreLoad(loader: DefaultLoader): void {
