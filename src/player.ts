@@ -10,11 +10,13 @@ import {
   Keys,
   Random,
   Side,
+  Tile,
   vec,
   Vector
 } from "excalibur";
 import { GroundGenerator } from "./ground";
 import { Collectable } from "./collectable";
+import { soundManager } from "./sound-manager-2";
 
 export class Player extends Actor {
   dir: ex.Vector = Vector.Right;
@@ -44,20 +46,20 @@ export class Player extends Actor {
   }
 
   override onInitialize(engine: Engine) {
-    this.left =  new Actor({color: Color.Transparent, pos: vec(-100, 0).add(vec(32, 32)), anchor: vec(1, .5), width: engine.screen.width/2, height: engine.screen.height/2});
-    this.right = new Actor({color: Color.Transparent, pos: vec(100, 0).add(vec(32, 32)), anchor: vec(0, .5), width: engine.screen.width/2, height: engine.screen.height/2});
-    this.up =    new Actor({color: Color.Transparent, pos: vec(0, -100).add(vec(32, 32)), anchor: vec(.5, 1), width: engine.screen.width/2, height: engine.screen.height/2});
-    this.down =  new Actor({color: Color.Transparent, pos: vec(0, 100).add(vec(32, 32)), anchor: vec(.5, 0), width: engine.screen.width/2, height: engine.screen.height/2});
+    this.left = new Actor({ color: Color.Transparent, pos: vec(-100, 0).add(vec(32, 32)), anchor: vec(1, .5), width: engine.screen.width / 2, height: engine.screen.height / 2 });
+    this.right = new Actor({ color: Color.Transparent, pos: vec(100, 0).add(vec(32, 32)), anchor: vec(0, .5), width: engine.screen.width / 2, height: engine.screen.height / 2 });
+    this.up = new Actor({ color: Color.Transparent, pos: vec(0, -100).add(vec(32, 32)), anchor: vec(.5, 1), width: engine.screen.width / 2, height: engine.screen.height / 2 });
+    this.down = new Actor({ color: Color.Transparent, pos: vec(0, 100).add(vec(32, 32)), anchor: vec(.5, 0), width: engine.screen.width / 2, height: engine.screen.height / 2 });
 
     this.addChild(this.left);
     this.addChild(this.right);
     this.addChild(this.up);
     this.addChild(this.down);
 
-    this.left.on('pointerdown',  () => this.moveInDirection(Vector.Left));
+    this.left.on('pointerdown', () => this.moveInDirection(Vector.Left));
     this.right.on('pointerdown', () => this.moveInDirection(Vector.Right));
-    this.up.on('pointerdown',    () => this.moveInDirection(Vector.Up));
-    this.down.on('pointerdown',  () => this.moveInDirection(Vector.Down));
+    this.up.on('pointerdown', () => this.moveInDirection(Vector.Up));
+    this.down.on('pointerdown', () => this.moveInDirection(Vector.Down));
 
     engine.input.keyboard.on("hold", (evt) => {
       let dir = Vector.Down;
@@ -101,6 +103,7 @@ export class Player extends Actor {
           duration: 200
         }).callMethod(() => {
           this.score += loot.value;
+          soundManager.play('getCommon');
           loot.kill();
         });
     }
@@ -154,6 +157,31 @@ export class Player extends Actor {
     this.pendingLoot.length = 0;
   }
 
+  maybePickupLoot(futureTile: Tile) {
+
+    const maybeLoot = futureTile.data.get('loot');
+    if (maybeLoot instanceof Collectable) {
+      this.pendingLoot.push(maybeLoot);
+      futureTile.data.delete('loot');
+      const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos);
+      maybeLoot.transform.coordPlane = CoordPlane.Screen;
+      maybeLoot.transform.pos = screenPos;
+      maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);
+      maybeLoot.playPickup();
+
+      
+
+      maybeLoot.actions.moveTo({
+        pos: vec(100 + this.random.integer(-5, 5), 100 + this.random.integer(-5, 5)),
+        easing: EasingFunctions.EaseInOutCubic,
+        duration: 1000
+      }).callMethod(() => {
+
+        // maybeLoot.graphics.isVisible = false;
+      });
+    }
+  }
+
   moveInDirection(direction: Vector) {
     const newTileCoord = direction.add(vec(this.tileX, this.tileY));
     const futureTile = this.ground.getTile(newTileCoord.x, newTileCoord.y);
@@ -171,24 +199,8 @@ export class Player extends Actor {
       this.tileX = futureTile.x;
       this.tileY = futureTile.y;
 
-      const maybeLoot = futureTile.data.get('loot');
-      if (maybeLoot instanceof Collectable) {
-        this.pendingLoot.push(maybeLoot);
-        futureTile.data.delete('loot');
-        const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos);
-        maybeLoot.transform.coordPlane = CoordPlane.Screen;
-        maybeLoot.transform.pos = screenPos;
-        maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);
+      this.maybePickupLoot(futureTile);
 
-        maybeLoot.actions.moveTo({
-          pos: vec(100 + this.random.integer(-5, 5), 100 + this.random.integer(-5, 5)),
-          easing: EasingFunctions.EaseInOutCubic,
-          duration: 1000
-        }).callMethod(() => {
-
-          // maybeLoot.graphics.isVisible = false;
-        });
-      }
       this.actions
         // .rotateTo(
         // Math.atan2(direction.y, direction.x),

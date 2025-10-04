@@ -1,6 +1,7 @@
 import { Actor, Color, Rectangle, vec } from "excalibur";
 import { GroundGenerator } from "./ground";
 import Config from './config';
+import { soundManager } from "./sound-manager-2";
 
 const Green = new Rectangle({ color: Color.Green, width: 32, height: 32 })
 const Blue = new Rectangle({ color: Color.Blue, width: 32, height: 32 })
@@ -42,5 +43,15 @@ export class Collectable extends Actor {
 
     const tile = ground.getTile(tileX, tileY);
     tile?.data.set('loot', this);
+  }
+
+  playPickup() {
+    switch(this.type) {
+      case 'green': soundManager.play('getCommon');break;
+      case 'blue': soundManager.play('getUncommon');break;
+      case 'red': soundManager.play('getRare');break;
+      case 'silver': soundManager.play('getVeryRare');break;
+      case 'gold': soundManager.play('getLegendary');break;
+    }
   }
 }

@@ -9,6 +9,11 @@ export const Resources = {
 
   // Sound Effects
   Projectile: new Sound('./sounds/template-sample-sound-projectile.mp3'),
+  GetCommon:   new Sound('./sounds/get_common.mp3'),
+  GetUncommon: new Sound('./sounds/get_uncommon.mp3'),
+  GetRare:     new Sound('./sounds/get_rare.mp3'),
+  GetVeryRare: new Sound('./sounds/get_veryrare.mp3'),
+  GetLegendary: new Sound('./sounds/get_legendary.mp3'),
 
   // Music
   Music1: new Sound({
