@@ -13,6 +13,22 @@ You can use the excalibur cli to generate this template
   * You can take x many hits before you die
   * Think sonic with flashing invincibility frames
 * Your loot is only safe when you reach the surface (or maybe other checkpoints)
+* Risk is noise you make (treasure, quickness, etc)
+  * Curse of avarice (more treasure the slower you go)
+
+## Todos
+
+* Implement collectables
+* Implement return collectables to surface
+* Add Number GO UP UI
+* Add Enemies that increase in frequences
+* Add Proc Gen chunks
+* Add fighting certain enemies
+* Art: Gems, Treasures, etc
+* Art: Miner (Dwarf, Gnome, Multiple)
+* Art: Dirt Variety
+* Art: Shack or Treasure Chest
+* Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 
 ### Stretch Goals
 * Rewards for collecting: Upgrade you speed, pick, mining, defense, etc
