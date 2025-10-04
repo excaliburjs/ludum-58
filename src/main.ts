@@ -1,6 +1,8 @@
 import { Color, DisplayMode, Engine, FadeInOut } from "excalibur";
 import { loader } from "./resources";
 import { MyLevel } from "./level";
+// import { loadPreferences } from "./preferences";
+// import { SoundManager } from "./sound-manager";
 
 // Goal is to keep main.ts small and just enough to configure the engine
 
@@ -30,5 +32,5 @@ game.start('start', { // name of the start scene 'start'
   // Do something after the game starts
 });
 
-loadPreferences();
-SoundManager.init();
+// loadPreferences();
+// SoundManager.init();

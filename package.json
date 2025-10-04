@@ -24,7 +24,6 @@
   "dependencies": {
     "excalibur": "0.31.0",
     "classnames": "2.5.1",
-    "excalibur": "0.29.2",
     "store": "2.0.12"
   },
   "devDependencies": {
