@@ -3,9 +3,11 @@ import {
   Collider,
   CollisionContact,
   Color,
+  CoordPlane,
   EasingFunctions,
   Engine,
   Keys,
+  Random,
   Side,
   vec,
   Vector
@@ -18,7 +20,7 @@ export class Player extends Actor {
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
   score: number = 0;
-  constructor(public tileX: number, public tileY: number, public ground: GroundGenerator) {
+  constructor(public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
       name: 'Player',
@@ -82,6 +84,23 @@ export class Player extends Actor {
       this.tileX = futureTile.x;
       this.tileY = futureTile.y;
 
+      const maybeLoot = futureTile.data.get('loot');
+      if (maybeLoot instanceof Collectable) {
+        this.pendingLoot.push(maybeLoot);
+        const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos.add(direction.scale(16)));
+        maybeLoot.transform.coordPlane = CoordPlane.Screen;
+        maybeLoot.transform.pos = screenPos;
+        maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);
+
+        maybeLoot.actions.moveTo({
+          pos: vec(100 + this.random.integer(-5, 5), 100 + this.random.integer(-5, 5)),
+          easing: EasingFunctions.EaseInOutCubic,
+          duration: 1000
+        }).callMethod(() => {
+
+          // maybeLoot.graphics.isVisible = false;
+        });
+      }
       this.actions
         // .rotateTo(
         // Math.atan2(direction.y, direction.x),
@@ -94,18 +113,6 @@ export class Player extends Actor {
           EasingFunctions.EaseInOutCubic
         ).callMethod(() => {
           this.moving = false;
-          const maybeLoot = futureTile.data.get('loot');
-          if (maybeLoot instanceof Collectable) {
-            this.pendingLoot.push(maybeLoot);
-
-            maybeLoot.actions.moveBy({
-              offset: vec(-100, -100),
-              easing: EasingFunctions.EaseInOutCubic,
-              duration: 1000
-            }).callMethod(() => {
-              maybeLoot.graphics.isVisible = false;
-            });
-          }
         });
     }
     // else {

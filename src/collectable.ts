@@ -30,16 +30,15 @@ export class Collectable extends Actor {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
       name: `Collectable[${type}]`,
-      pos: worldPosFromTile.add(vec(16, 16)),
-      width: 64,
-      height: 64,
-      z: 9,
-      anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
+      pos: worldPosFromTile.add(vec(32, 32)),
+      width: 32,
+      height: 32,
+      z: 11,
+      anchor: vec(.5, .5), // Actors default center colliders and graphics with anchor (0.5, 0.5)
     });
 
     this.graphics.add(getGraphicsForType(type));
     this.value = Config.LootValue[type];
-
 
     const tile = ground.getTile(tileX, tileY);
     tile?.data.set('loot', this);

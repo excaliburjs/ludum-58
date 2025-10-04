@@ -11,9 +11,9 @@ export class DigLevel extends Scene {
 
     const groundGenerator = new GroundGenerator(this, this.random);
     groundGenerator.generate();
-    const player = new Player(5, 0, groundGenerator);
+    const player = new Player(5, 0, groundGenerator, this.random);
     this.add(player); // Actors need to be added to a scene to be drawn
-    this.camera.strategy.elasticToActor(player, .5, .5); 
+    this.camera.strategy.elasticToActor(player, .5, .5);
 
     soundManager.play("music1");
 
