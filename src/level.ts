@@ -20,7 +20,6 @@ export class DigLevel extends Scene {
 
     soundManager.play("music1");
 
-
     this.label = new Label({
       pos: vec(engine.screen.getScreenBounds().width - 20, 20),
       text: 'Score: 0',
@@ -32,7 +31,6 @@ export class DigLevel extends Scene {
       z: 12
     });
     this.add(this.label);
-
   }
 
   override onPreLoad(loader: DefaultLoader): void {

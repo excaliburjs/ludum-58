@@ -1,8 +1,4 @@
-# Excalibur TypeScript & Vite template
-
-Check out the full documentation @ https://excaliburjs.com
-
-You can use the excalibur cli to generate this template
+# Gem Jam - Ludum 58
 
 ## Concept
 
@@ -18,13 +14,14 @@ You can use the excalibur cli to generate this template
 
 ## Todos
 
-* Implement sound playing
-* Implement collectables
-* Implement return collectables to surface
-* Add Number GO UP UI
+* [x] Implement sound playing
+* [x] Implement collectables
+* [x] Implement return collectables to surface
+* [x] Add Number GO UP UI
 * Add Enemies that increase in frequences
 * Add Proc Gen chunks
 * Add fighting certain enemies
+* Add touch controls
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
 * Art: Dirt Variety
