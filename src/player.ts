@@ -4,6 +4,7 @@ import {
   CollisionContact,
   Color,
   CoordPlane,
+  coroutine,
   EasingFunctions,
   Engine,
   Keys,
@@ -84,19 +85,38 @@ export class Player extends Actor {
     }
   }
 
+
   takeDamage() {
     if (this.invincible) return;
 
-    this.invincible = true;
-    this.actions.flash(Color.White, 500).callMethod(() => {
-      this.invincible = false;
+    const me = this;
+    coroutine(function*() {
+      me.invincible = true;
+      me.graphics.isVisible = false;
+      let duration = 1000;
+      let flashDuration = 200;
+
+
+      while (duration > 0) {
+        const elapsed = yield;
+        duration -= elapsed;
+        flashDuration -= elapsed;
+
+        if (flashDuration < 0) {
+          flashDuration = 200;
+          me.graphics.isVisible = !me.graphics.isVisible;
+        }
+      }
+      me.invincible = false;
+      me.graphics.isVisible = true;
     });
+
   }
 
   dropPendingLoot() {
     if (this.invincible) return;
 
-    const slice = (2* Math.PI) / this.pendingLoot.length;
+    const slice = (2 * Math.PI) / this.pendingLoot.length;
     let dir = 0;
     for (let loot of this.pendingLoot) {
       loot.actions
