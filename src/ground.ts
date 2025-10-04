@@ -1,8 +1,12 @@
 import { Random, Scene, Sprite, TileMap, vec } from "excalibur";
 import { Resources } from "./resources";
+import { Collectable } from "./collectable";
+
+import Config from './config';
 
 
 export class GroundGenerator {
+  worldHeight = 200;
   startChunk = new TileMap({
     pos: vec(0, 64 * 5),
     tileWidth: 64,
@@ -28,13 +32,25 @@ export class GroundGenerator {
       } else {
         tile.addGraphic(this.dirtFront);
         tile.solid = true;
+
+        this.generateCollectables(tile.x, tile.y);
       }
     }
+
+    this.scene.add(new Collectable(10, 3, 'gold', this));
   }
 
-  generateCollectables() {
+  generateCollectables(x: number, y: number) {
+    const ran = this.random.next();
+    const depthBonus = (y > 10) ? (y  / this.worldHeight) : 0;
 
-
+    for (let loot in Config.LootPercent) {
+      if (loot in Config.LootPercent) {
+        if ((1.0 - (Config.LootPercent as any)[loot as string]) < Math.max(ran, depthBonus)) {
+            this.scene.add(new Collectable(x, y, loot as any, this));
+        }
+      }
+    }
   }
 
   getTile(x: number, y: number) {
