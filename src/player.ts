@@ -70,14 +70,17 @@ export class Player extends Actor {
   scorePendingLoot() {
     let delay = 0;
     for (let loot of this.pendingLoot) {
-      loot.actions.delay(delay+=40).moveTo({ 
-        pos: vec(this.scene!.engine.screen.width, 100),
-        easing: EasingFunctions.EaseInOutCubic,
-        duration: 200
-      });
-
+      loot.actions
+        .delay(delay += 40)
+        .moveTo({
+          pos: vec(this.scene!.engine.screen.getScreenBounds().width - 20, 20),
+          easing: EasingFunctions.EaseInOutCubic,
+          duration: 200
+        }).callMethod(() => {
+          this.score += loot.value;
+          loot.kill();
+        });
     }
-
   }
 
   moveInDirection(direction: Vector) {
@@ -97,14 +100,11 @@ export class Player extends Actor {
       this.tileX = futureTile.x;
       this.tileY = futureTile.y;
 
-
-
-
       const maybeLoot = futureTile.data.get('loot');
       if (maybeLoot instanceof Collectable) {
         this.pendingLoot.push(maybeLoot);
         futureTile.data.delete('loot');
-        const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos.add(direction.scale(16)));
+        const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos);
         maybeLoot.transform.coordPlane = CoordPlane.Screen;
         maybeLoot.transform.pos = screenPos;
         maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);

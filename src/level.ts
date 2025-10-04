@@ -1,10 +1,12 @@
-import { DefaultLoader, Engine, ExcaliburGraphicsContext, Random, Scene, SceneActivationContext } from "excalibur";
+import { CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Label, Random, Scene, SceneActivationContext, TextAlign, vec } from "excalibur";
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
 import { soundManager } from "./sound-manager-2";
 
 export class DigLevel extends Scene {
   public random = new Random(1337);
+  public label!: Label;
+  public player!: Player;
   override onInitialize(engine: Engine): void {
 
     this.camera.pos = engine.screen.center;
@@ -12,10 +14,24 @@ export class DigLevel extends Scene {
     const groundGenerator = new GroundGenerator(this, this.random);
     groundGenerator.generate();
     const player = new Player(5, 0, groundGenerator, this.random);
+    this.player = player;
     this.add(player); // Actors need to be added to a scene to be drawn
     this.camera.strategy.elasticToActor(player, .5, .5);
 
     soundManager.play("music1");
+
+
+    this.label = new Label({
+      pos: vec(engine.screen.getScreenBounds().width - 20, 20),
+      text: 'Score: 0',
+      coordPlane: CoordPlane.Screen,
+      font: new Font({
+        textAlign: TextAlign.Right,
+        size: 30
+      }),
+      z: 12
+    });
+    this.add(this.label);
 
   }
 
@@ -39,6 +55,7 @@ export class DigLevel extends Scene {
 
   override onPostUpdate(engine: Engine, elapsedMs: number): void {
     // Called after everything updates in the scene
+    this.label.text = `Score ${this.player.score}`;
   }
 
   override onPreDraw(ctx: ExcaliburGraphicsContext, elapsedMs: number): void {
