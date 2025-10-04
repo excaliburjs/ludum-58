@@ -22,6 +22,10 @@ export class Player extends Actor {
   pendingLoot: Collectable[] = [];
   score: number = 0;
   invincible: boolean = false;
+  left!: Actor;
+  right!: Actor;
+  up!: Actor;
+  down!: Actor;
   constructor(public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
@@ -35,9 +39,26 @@ export class Player extends Actor {
       // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
       // acc: vec(0, 400)
     });
+
+
   }
 
   override onInitialize(engine: Engine) {
+    this.left =  new Actor({color: Color.Transparent, pos: vec(-100, 0).add(vec(32, 32)), anchor: vec(1, .5), width: engine.screen.width/2, height: engine.screen.height/2});
+    this.right = new Actor({color: Color.Transparent, pos: vec(100, 0).add(vec(32, 32)), anchor: vec(0, .5), width: engine.screen.width/2, height: engine.screen.height/2});
+    this.up =    new Actor({color: Color.Transparent, pos: vec(0, -100).add(vec(32, 32)), anchor: vec(.5, 1), width: engine.screen.width/2, height: engine.screen.height/2});
+    this.down =  new Actor({color: Color.Transparent, pos: vec(0, 100).add(vec(32, 32)), anchor: vec(.5, 0), width: engine.screen.width/2, height: engine.screen.height/2});
+
+    this.addChild(this.left);
+    this.addChild(this.right);
+    this.addChild(this.up);
+    this.addChild(this.down);
+
+    this.left.on('pointerdown', () => this.moveInDirection(Vector.Left));
+    this.right.on('pointerdown', () => this.moveInDirection(Vector.Right));
+    this.up.on('pointerdown', () => this.moveInDirection(Vector.Up));
+    this.down.on('pointerdown', () => this.moveInDirection(Vector.Down));
+
     engine.input.keyboard.on("hold", (evt) => {
       let dir = Vector.Down;
       switch (evt.key) {
