@@ -18,6 +18,7 @@ You can use the excalibur cli to generate this template
 
 ## Todos
 
+* Implement sound playing
 * Implement collectables
 * Implement return collectables to surface
 * Add Number GO UP UI

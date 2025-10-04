@@ -1,9 +1,8 @@
-import { Scene, Sprite, TileMap, vec } from "excalibur";
+import { Random, Scene, Sprite, TileMap, vec } from "excalibur";
 import { Resources } from "./resources";
 
 
 export class GroundGenerator {
-
   startChunk = new TileMap({
     pos: vec(0, 64 * 5),
     tileWidth: 64,
@@ -14,7 +13,7 @@ export class GroundGenerator {
   chunks: TileMap[] = [];
   dirtFront: Sprite;
 
-  constructor(private scene: Scene) {
+  constructor(private scene: Scene, private random: Random) {
     this.dirtFront = Resources.Dirt.toSprite();
     this.startChunk.pointer.useColliderShape = false;
     this.startChunk.pointer.useGraphicsBounds = false;
@@ -31,6 +30,11 @@ export class GroundGenerator {
         tile.solid = true;
       }
     }
+  }
+
+  generateCollectables() {
+
+
   }
 
   getTile(x: number, y: number) {

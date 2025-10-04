@@ -1,16 +1,21 @@
-import { DefaultLoader, Engine, ExcaliburGraphicsContext, Scene, SceneActivationContext } from "excalibur";
+import { DefaultLoader, Engine, ExcaliburGraphicsContext, Random, Scene, SceneActivationContext } from "excalibur";
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
+import { soundManager } from "./sound-manager-2";
 
 export class DigLevel extends Scene {
+  public random = new Random(1337);
   override onInitialize(engine: Engine): void {
 
     this.camera.pos = engine.screen.center;
 
-    const groundGenerator = new GroundGenerator(this);
+    const groundGenerator = new GroundGenerator(this, this.random);
     groundGenerator.generate();
     const player = new Player(5, 0, groundGenerator);
     this.add(player); // Actors need to be added to a scene to be drawn
+    this.camera.strategy.elasticToActor(player, .5, .5); 
+
+    soundManager.play("music1");
 
   }
 
