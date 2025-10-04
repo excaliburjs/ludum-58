@@ -19,6 +19,10 @@ export class GroundGenerator {
 
   generate() {
     this.scene.add(this.startChunk);
-    this.startChunk.tiles.forEach(t => t.addGraphic(this.dirtFront));
+    for (let i = 0; i < this.startChunk.tiles.length; i++) {
+      const tile = this.startChunk.tiles[i];
+      tile.addGraphic(this.dirtFront);
+
+    }
   }
 }
