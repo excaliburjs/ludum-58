@@ -2,8 +2,11 @@ import { ImageSource, Loader, Sound } from "excalibur";
 
 // It is convenient to put your resources in one place
 export const Resources = {
-  Sword: new ImageSource("./images/sword.png"), // Vite public/ directory serves the root images
-  Projectile: new Sound('./sounds/template-sample-sound-projectile.mp3')
+  // Vite public/ directory serves the root images and sounds
+  Sword: new ImageSource("./images/sword.png"), 
+  Dirt: new ImageSource("./images/dirt_front.png"),
+
+  Projectile: new Sound('./sounds/template-sample-sound-projectile.mp3'),
 } as const; // the 'as const' is a neat typescript trick to get strong typing on your resources. 
 // So when you type Resources.Sword -> ImageSource
 

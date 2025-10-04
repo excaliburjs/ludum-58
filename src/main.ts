@@ -1,6 +1,6 @@
 import { Color, DisplayMode, Engine, FadeInOut } from "excalibur";
 import { loader } from "./resources";
-import { MyLevel } from "./level";
+import { DigLevel } from "./level";
 // import { loadPreferences } from "./preferences";
 // import { SoundManager } from "./sound-manager";
 
@@ -13,7 +13,7 @@ const game = new Engine({
   displayMode: DisplayMode.FitScreenAndFill, // Display mode tells excalibur how to fill the window
   pixelArt: true, // pixelArt will turn on the correct settings to render pixel art without jaggies or shimmering artifacts
   scenes: {
-    start: MyLevel
+    start: DigLevel
   },
   // physics: {
   //   solver: SolverStrategy.Realistic,
