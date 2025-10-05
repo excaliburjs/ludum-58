@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import alias from '@rollup/plugin-alias';
 import posthtml from '@vituum/vite-plugin-posthtml'
-import path from "path";
+import path, { resolve } from "path";
 
 // if you use tiled maps
 // there is a collision between react w/ typescript .tsx
@@ -40,8 +40,12 @@ export default defineConfig({
     // Vite uses rollup currently for prod builds so a separate config is needed
     // to keep vite from bundling ESM together with commonjs
     rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        credits: resolve(__dirname, 'credits.html'),
+      },
       output: {
-        format: 'umd'
+        inlineDynamicImports: false,
       }
     }
   }

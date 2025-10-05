@@ -27,10 +27,10 @@
 * [x] Add music layers implementation
 * [x] Add Surface music
 * [x] Vendor excalibur
-* [ ] Add game over screen
+* [x] Add game over screen
 * [ ] Add Enemies that increase in frequences
-* [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add shop
+* [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add fighting certain enemies
 * [ ] Add graph of treasure collected over time/events
    - Shareable on Socials
