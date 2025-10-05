@@ -13,5 +13,14 @@ export const soundManager = new SoundManager({
     getRare: { sound: Resources.GetRare, volume: 1.0, channels: ['fx']},
     getVeryRare: { sound: Resources.GetVeryRare, volume: 1.0, channels: ['fx']},
     getLegendary: { sound: Resources.GetLegendary, volume: 1.0, channels: ['fx']},
+
+    bagFull: {sound: Resources.BagFull, volume: 1.0, channels: ['fx']},
+    playerDig: {sound: Resources.PlayerDig, volume: 1.0, channels: ['fx']},
+    playerHurt: {sound: Resources.PlayerHurt, volume: 1.0, channels: ['fx']},
+    playerStep: {sound: Resources.PlayerStep, volume: 1.0, channels: ['fx']},
+
+    beetleBite: {sound: Resources.BeetleBite, volume: 1.0, channels: ['fx']},
+    beetleHurt: {sound: Resources.BeetleHurt, volume: 1.0, channels: ['fx']},
+    beetleMove: {sound: Resources.BeetleMove, volume: .25, channels: ['fx']},
   }
 });

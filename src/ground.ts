@@ -5,6 +5,7 @@ import { Collectable } from "./collectable";
 import Config from './config';
 import { Enemy } from "./enemy";
 import { Player } from "./player";
+import { soundManager } from "./sound-manager-2";
 
 
 export class GroundGenerator {
@@ -38,6 +39,7 @@ export class GroundGenerator {
       if (tile.data.get('dug')) {
         return false;
       }
+      soundManager.play('playerDig');
       tile.data.set('dug', true);
       tile.clearGraphics();
       tile.addGraphic(this.dirtBack);
@@ -86,7 +88,6 @@ export class GroundGenerator {
         this.generateEnemy(tile.x + chunkX * this.startChunk.columns, tile.y + chunkY * this.startChunk.rows, this.player);
       }
     }
-
   }
 
   generate(player: Player) {

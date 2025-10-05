@@ -143,6 +143,7 @@ export class Player extends Actor {
 
   dropPendingLoot() {
     if (this.invincible) return;
+    soundManager.play('playerHurt');
 
     const slice = (2 * Math.PI) / this.pendingLoot.length;
     let dir = 0;
@@ -162,13 +163,14 @@ export class Player extends Actor {
   }
 
   maybePickupLoot(futureTile: Tile) {
-    if (this.pendingLoot.length >= this.capacity) {
-      // TODO play womp womp sound
-      return;
-    }
 
     const maybeLoot = futureTile.data.get('loot');
     if (maybeLoot instanceof Collectable) {
+      if (this.pendingLoot.length >= this.capacity) {
+        soundManager.play('bagFull');
+        return;
+      }
+
       this.pendingLoot.push(maybeLoot);
       futureTile.data.delete('loot');
       const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos);
@@ -209,6 +211,9 @@ export class Player extends Actor {
       this.maybePickupLoot(futureTile);
       const isSlow = this.ground.digTile(this.tileX, this.tileY);
 
+      if (!isSlow) {
+        soundManager.play('playerStep');
+      }
       this.actions
         // .rotateTo(
         // Math.atan2(direction.y, direction.x),

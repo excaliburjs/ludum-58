@@ -16,6 +16,15 @@ export const Resources = {
   GetVeryRare: new Sound('./sounds/get_veryrare.mp3'),
   GetLegendary: new Sound('./sounds/get_legendary.mp3'),
 
+  BagFull: new Sound('./sounds/bag_full.mp3'),
+  PlayerDig: new Sound('./sounds/player_dig.mp3'),
+  PlayerHurt: new Sound('./sounds/player_hurt.mp3'),
+  PlayerStep: new Sound('./sounds/player_step.mp3'),
+
+  BeetleBite: new Sound('./sounds/beetle_bite.mp3'),
+  BeetleHurt: new Sound('./sounds/beetle_hurt.mp3'),
+  BeetleMove: new Sound('./sounds/beetle_move.mp3'),
+
   // Music
   Music1: new Sound({
     paths: ['./sounds/gem jam (cavernous demo).mp3'],
@@ -28,8 +37,6 @@ export const Resources = {
     volume: .5
   })
 } as const; // the 'as const' is a neat typescript trick to get strong typing on your resources. 
-// So when you type Resources.Sword -> ImageSource
-
 
 export const BeetleSheet = SpriteSheet.fromImageSource({
   image: Resources.BeetleImage,

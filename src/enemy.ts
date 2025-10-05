@@ -2,6 +2,7 @@ import { Actor, Animation, AnimationStrategy, EasingFunctions, Engine, Random, R
 import { GroundGenerator } from "./ground";
 import { BeetleSheet } from "./resources";
 import { Player } from "./player";
+import { soundManager } from "./sound-manager-2";
 
 export type EnemyType = 'beetle' | 'worm';
 
@@ -11,6 +12,7 @@ export class Enemy extends Actor {
   dir: ex.Vector = Vector.Right;
   moving: boolean = false;
   animation: Animation;
+  attacking: boolean = false;
   constructor(public tileX: number, public tileY: number, public type: EnemyType, public player: Player, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
@@ -30,6 +32,10 @@ export class Enemy extends Actor {
       AnimationStrategy.PingPong
     );
     this.graphics.use(this.animation);
+  }
+
+  onInitialize(engine: Engine): void {
+    this.addTag('ex.offscreen');
   }
 
   onPostUpdate(engine: Engine, elapsed: number): void {
@@ -53,8 +59,15 @@ export class Enemy extends Actor {
     }
 
     if (this.tileX === this.player.tileX && this.tileY === this.player.tileY) {
-      this.player.dropPendingLoot();
-      this.player.takeDamage();
+
+      if (!this.attacking) {
+        this.attacking = true;
+
+        this.player.dropPendingLoot();
+        this.player.takeDamage();
+
+        soundManager.play('beetleBite').then(() => this.attacking = false);
+      }
     }
   }
 
@@ -79,7 +92,9 @@ export class Enemy extends Actor {
       this.tileX = newTileCoord.x;
       this.tileY = newTileCoord.y;
 
-
+      if (!this.isOffScreen) {
+        soundManager.play('beetleMove');
+      }
       this.actions
         .rotateTo(
           Math.atan2(direction.y, direction.x),
