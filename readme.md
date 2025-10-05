@@ -27,6 +27,7 @@
 * [ ] Add fighting certain enemies
 * [ ] Surface music
 * [x] Add touch controls
+
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
 * Art: Dirt Variety
@@ -34,7 +35,13 @@
 * Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 
 ### Stretch Goals
-* Rewards for collecting: Upgrade you speed, pick, mining, capacity, defense, etc
+* Rewards for collecting: 
+  - Upgrade you speed, 
+  - pick, 
+  - mining, 
+  - capacity, 
+  - defense,
+  - warp to the top beacon
 
 ```sh
 npm create excalibur
