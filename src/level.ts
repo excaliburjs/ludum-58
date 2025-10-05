@@ -1,4 +1,4 @@
-import { CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Label, Random, Scene, SceneActivationContext, TextAlign, vec } from "excalibur";
+import { CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Label, MotionSystem, PointerSystem, Random, Scene, SceneActivationContext, TextAlign, vec } from "excalibur";
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
 import { soundManager } from "./sound-manager-2";
@@ -9,9 +9,16 @@ export class DigLevel extends Scene {
   public label!: Label;
   public player!: Player;
   public gembagLabel!: Label;
+  groundGenerator!: GroundGenerator;
+
   override onInitialize(engine: Engine): void {
+    // perf hacks
+    const pointerSystem = this.world.systemManager.get(PointerSystem);
+    this.world.systemManager.removeSystem(pointerSystem!);
+    MotionSystem.prototype.captureOldTransformWithChildren = () => {}; // perf hack
 
     const groundGenerator = new GroundGenerator(this, this.random);
+    this.groundGenerator = groundGenerator;
 
     const player = new Player(5, 0, groundGenerator, this.random);
     this.player = player;
@@ -19,7 +26,7 @@ export class DigLevel extends Scene {
 
 
     groundGenerator.generate(player);
-    groundGenerator.generateChunk(-1, 0);
+    // groundGenerator.generateChunk(-1, 0);
 
     const beetle = new Enemy(5, 3, 'beetle', player, groundGenerator, this.random);
     this.add(beetle);
@@ -43,7 +50,6 @@ export class DigLevel extends Scene {
       z: 12
     });
     this.add(this.label);
-
 
 
     this.gembagLabel = new Label({
@@ -81,6 +87,8 @@ export class DigLevel extends Scene {
     // Called after everything updates in the scene
     this.label.text = `Score ${this.player.score}`;
     this.gembagLabel.text = `Gem Bag: ${this.player.pendingLoot.length}/${this.player.capacity}`;
+
+    this.groundGenerator.shouldGenerate();
   }
 
   override onPreDraw(ctx: ExcaliburGraphicsContext, elapsedMs: number): void {

@@ -32,6 +32,8 @@ export class Enemy extends Actor {
       AnimationStrategy.PingPong
     );
     this.graphics.use(this.animation);
+    this.pointer.useColliderShape = false;
+    this.pointer.useGraphicsBounds = false;
   }
 
   onInitialize(engine: Engine): void {
@@ -39,6 +41,7 @@ export class Enemy extends Actor {
   }
 
   onPostUpdate(engine: Engine, elapsed: number): void {
+    if (this.isOffScreen) return;
     if (!this.moving) {
       const dist = this.player.pos.sub(this.pos);
       if (dist.magnitude < 400 && this.random.bool()) {

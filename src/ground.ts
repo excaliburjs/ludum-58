@@ -48,6 +48,20 @@ export class GroundGenerator {
     return true;
   }
 
+  shouldGenerate() {
+    const screen = this.scene.engine.screen;
+    const unsafeArea = this.scene.engine.screen.unsafeArea;
+    const bottomLeft = screen.screenToWorldCoordinates(unsafeArea.bottomLeft);
+
+    const tileBottomLeftX = Math.floor(bottomLeft.x / 64);
+    const tileBottomLeftY = Math.floor(bottomLeft.y / 64);
+    const maybeTile = this.getTile(tileBottomLeftX, tileBottomLeftY);
+    if (!maybeTile) {
+      this.generateChunk(Math.floor(tileBottomLeftX / this.startChunk.columns), Math.floor(tileBottomLeftY / this.startChunk.rows));
+    }
+
+  }
+
 
   generateChunk(chunkX: number, chunkY: number) {
     const coord = `${chunkX}+${chunkY}`;
@@ -55,6 +69,8 @@ export class GroundGenerator {
     if (maybeChunk || chunkY < 0) {
       return;
     }
+
+    console.log("Generating chunk!", coord);
 
     const newChunkOrigin = this.worldOrigin.add(
       vec(
