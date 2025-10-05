@@ -8,7 +8,7 @@ export class DigLevel extends Scene {
   public random = new Random(1337);
   public label!: Label;
   public player!: Player;
-  gembagLabel: Label;
+  public gembagLabel!: Label;
   override onInitialize(engine: Engine): void {
 
     const groundGenerator = new GroundGenerator(this, this.random);
