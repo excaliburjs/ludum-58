@@ -41,7 +41,7 @@ export class DigLevel extends Scene {
       this.engine.clock.schedule(() => {
         this.gameOverEl.show();
         Resources.GameOver.play();
-      },1000);
+      }, 1000);
 
       Resources.MusicSurface.stop();
       Resources.MusicIndDrums.stop();
@@ -163,6 +163,7 @@ export class DigLevel extends Scene {
         const volume = Math.max((this.player.tileY % 1) / 1, 0);
         Resources.MusicSurface.volume = .5 * (1.0 - volume);
         Resources.MusicIndDrums.volume = .5 * volume;
+        Resources.MusicIndTopper.volume = 0;
         break;
       }
       case (this.player.tileY < worldLayer): {
@@ -175,6 +176,7 @@ export class DigLevel extends Scene {
       case (this.player.tileY < worldLayer * 2): {
         const volume = Math.max(((this.player.tileY - worldLayer) % worldLayer) / worldLayer, 0);
         Resources.MusicIndTopper.volume = .5 * (1.0 - volume); // Fade out
+        Resources.MusicGroovyTopper.volume = 0;
         break;
       }
 
@@ -188,6 +190,7 @@ export class DigLevel extends Scene {
       case (this.player.tileY < worldLayer * 4): {
         const volume = Math.max(((this.player.tileY - worldLayer * 3) % worldLayer) / worldLayer, 0);
         Resources.MusicIndDrums.volume = .5 * (1.0 - volume); // Fade out
+        Resources.MusicGroovyDrums.volume = 0;
         break;
       }
 
