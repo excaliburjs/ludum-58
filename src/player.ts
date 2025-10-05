@@ -17,6 +17,7 @@ import {
 import { GroundGenerator } from "./ground";
 import { Collectable } from "./collectable";
 import { soundManager } from "./sound-manager-2";
+import Config from './config';
 
 export class Player extends Actor {
   dir: ex.Vector = Vector.Right;
@@ -150,13 +151,28 @@ export class Player extends Actor {
     const slice = (2 * Math.PI) / this.pendingLoot.length;
     let dir = 0;
     for (let loot of this.pendingLoot) {
+      loot.transform.coordPlane = CoordPlane.World;
+      loot.pos = this.pos;
+      const spreadDist = Config.LootSpreadDistance;
+      const spreadPos = this.pos.add(vec(Math.cos(dir) * spreadDist, Math.sin(dir) * spreadDist));
+      const nearestTileX = Math.floor((spreadPos.x - this.ground.worldOrigin.x)/64);
+      const nearestTileY = Math.floor((spreadPos.y - this.ground.worldOrigin.y)/64);
+      const maybeTile = this.ground.getTile(nearestTileX, nearestTileY);
+
       loot.actions
         .moveTo({
-          pos: vec(Math.cos(dir) * 100, Math.sin(dir) * 100),
+          pos: maybeTile ? maybeTile.pos.add(vec(32, 32)) : spreadPos,
           easing: EasingFunctions.EaseInOutCubic,
           duration: 200
         }).callMethod(() => {
-          loot.kill();
+          if (!maybeTile) {
+            loot.kill();
+          }
+          if (maybeTile?.data.get('loot')) {
+            loot.kill();
+          }else {
+            maybeTile?.data.set('loot', loot);
+          }
         });
 
       dir += slice;

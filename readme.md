@@ -20,16 +20,16 @@
 * [x] Add Number GO UP UI
 * [x] Gem Capacity forcing you to return quickly
 * [x] Dug dirt is faster to traverse than undug dirt
-* [ ] Add fighting certain enemies
 * [x] Add hearts for you run
-* [ ] Gems scatter around you when hit
-* [ ] Add Enemies that increase in frequences
-* [ ] Add 5 layers of dirt (with corresponding)
+* [x] Gems scatter around you when hit
 * [x] Add Proc Gen chunks
+* [?] Add touch controls (Currently disabled for perf)
+* [ ] Add Enemies that increase in frequences
+* [ ] Add fighting certain enemies
+* [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Surface music
-* [x] Add touch controls
-* [ ] Add graph of treasure collected over time/events
 * [ ] Add shop
+* [ ] Add graph of treasure collected over time/events
 
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)

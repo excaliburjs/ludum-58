@@ -4,6 +4,7 @@ export default {
   BackgroundAmbianceVolume: 0.5,
   BackgroundMusicVolume: 0.5,
 
+  LootSpreadDistance: 200,
   ChunkSize: {width: 100, height: 100},
   WorldHeight: 200,
 
