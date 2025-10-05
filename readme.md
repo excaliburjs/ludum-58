@@ -24,18 +24,26 @@
 * [x] Gems scatter around you when hit
 * [x] Add Proc Gen chunks
 * [?] Add touch controls (Currently disabled for perf)
+* [ ] Add music layers implementation
 * [ ] Add Enemies that increase in frequences
+* [ ] Add game over screen
+* [ ] Add shop
 * [ ] Add fighting certain enemies
 * [ ] Add 5 layers of dirt (with corresponding)
-* [ ] Surface music
-* [ ] Add shop
+* [ ] Add Surface music
 * [ ] Add graph of treasure collected over time/events
+* [ ] Add high score
 
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
 * Art: Dirt Variety
 * Art: Shack or Treasure Chest
 * Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
+
+- Moles: Fill in mine shafts, priorities empty shafts, favor vertical
+- Snake/Worm: favort horizontal and veer toward you
+- Beetles: 50% random, 50% towards the player
+- Demon/Balrog: Easter egg? Game over screen? "You dug to greedily and too deep"
 
 ### Stretch Goals
 * Rewards for collecting: 

@@ -1,9 +1,11 @@
-import { CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Label, MotionSystem, PointerSystem, Random, Scene, SceneActivationContext, TextAlign, vec } from "excalibur";
+import { AudioContextFactory, CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Label, MotionSystem, PointerSystem, Random, Scene, SceneActivationContext, TextAlign, vec } from "excalibur";
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
-import { soundManager } from "./sound-manager-2";
+// import { soundManager } from "./sound-manager-2";
 import { Enemy } from "./enemy";
 import { Health } from "./health";
+import { Resources } from "./resources";
+import Config from './config';
 
 export class DigLevel extends Scene {
   public random = new Random(1337);
@@ -44,7 +46,16 @@ export class DigLevel extends Scene {
     this.camera.pos = engine.screen.center;
     this.camera.strategy.elasticToActor(player, .5, .5);
 
-    soundManager.play("music1");
+    const time = AudioContextFactory.currentTime() + .5;
+
+    Resources.MusicSurface.play(.5, time);
+    Resources.MusicIndDrums.play(0, time);
+    Resources.MusicIndTopper.play(0, time);
+    Resources.MusicGroovyDrums.play(0, time);
+    Resources.MusicGroovyTopper.play(0, time);
+
+    // soundManager.play('indDrums');
+    // soundManager.play('indTopper');
 
     this.label = new Label({
       pos: vec(engine.screen.getScreenBounds().width - 20, 20),
@@ -95,6 +106,48 @@ export class DigLevel extends Scene {
     this.label.text = `Score ${this.player.score}`;
     this.gembagLabel.text = `Gem Bag: ${this.player.pendingLoot.length}/${this.player.capacity}`;
     this.health.health = this.player.health;
+
+    const worldLayer = (Config.WorldHeight / 5) / 4;
+
+    switch (true) {
+      case (this.player.tileY < 3): {
+        const volume = Math.max((this.player.tileY % 3) / 3, 0);
+        Resources.MusicSurface.volume = .5 * (1.0 - volume);
+        Resources.MusicIndDrums.volume = .5 * volume;
+        break;
+      }
+      case (this.player.tileY < worldLayer): {
+        const volume = Math.max((this.player.tileY % worldLayer) / worldLayer, 0);
+        Resources.MusicSurface.volume = 0;
+        Resources.MusicIndTopper.volume = .5 * volume; // Fade in
+        break;
+      }
+      case (this.player.tileY < worldLayer * 2): {
+        const volume = Math.max(((this.player.tileY - worldLayer) % worldLayer) / worldLayer, 0);
+        Resources.MusicIndTopper.volume = .5 * (1.0 - volume); // Fade out
+        break;
+      }
+
+      case (this.player.tileY < worldLayer * 3): {
+        const volume = Math.max(((this.player.tileY - worldLayer * 2) % worldLayer) / worldLayer, 0);
+        Resources.MusicIndTopper.volume = 0;
+        Resources.MusicGroovyTopper.volume = .5 * volume; // Fade in
+        break;
+      }
+
+      case (this.player.tileY < worldLayer * 4): {
+        const volume = Math.max(((this.player.tileY - worldLayer * 3) % worldLayer) / worldLayer, 0);
+        Resources.MusicIndDrums.volume = .5 * (1.0 - volume); // Fade out
+        break;
+      }
+
+      case (this.player.tileY < worldLayer * 5): {
+        const volume = Math.max(((this.player.tileY - worldLayer * 4) % worldLayer) / worldLayer, 0);
+        Resources.MusicIndDrums.volume = 0;
+        Resources.MusicGroovyDrums.volume = .5 * volume; // Fade in
+        break;
+      }
+    }
 
     this.groundGenerator.shouldGenerate();
   }

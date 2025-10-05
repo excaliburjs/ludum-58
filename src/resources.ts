@@ -36,7 +36,33 @@ export const Resources = {
     paths: ['./sounds/industrious demo.mp3'],
     loop: true,
     volume: .5
-  })
+  }),
+
+  MusicSurface: new Sound({
+    paths: ['./sounds/surface_2.1.mp3'],
+    loop: true,
+    volume: 1.
+  }),
+  MusicIndDrums: new Sound({
+    paths: ['./sounds/ind_drums_2.1.mp3'],
+    loop: true,
+    volume: 1.
+  }),
+  MusicIndTopper: new Sound({
+    paths: ['./sounds/ind_top_2.1.mp3'],
+    loop: true,
+    volume: 1.
+  }),
+  MusicGroovyDrums: new Sound({
+    paths: ['./sounds/groovy_drums_2.1.mp3'],
+    loop: true,
+    volume: 1.
+  }),
+  MusicGroovyTopper: new Sound({
+    paths: ['./sounds/groovy_top_2.1.mp3'],
+    loop: true,
+    volume: 1.
+  }),
 } as const; // the 'as const' is a neat typescript trick to get strong typing on your resources. 
 
 export const BeetleSheet = SpriteSheet.fromImageSource({
