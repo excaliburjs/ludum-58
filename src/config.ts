@@ -9,6 +9,16 @@ export default {
     beetle:   .01
   },
 
+  Terrain: {
+    normal: 0,
+    dirt1: 25,
+    dirt2: 50,
+    dirt3: 75,
+    dirt4: 100,
+    dirt5: 150,
+    dirt6: 175,
+  },
+
   LootPercent: {
     gold:    .001,
     silver:  .002,

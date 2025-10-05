@@ -35,7 +35,7 @@ export class Enemy extends Actor {
   }
 
   onInitialize(engine: Engine): void {
-    this.addTag('ex.offscreen');
+    this.addTag('ex.offscreen'); // Hack to keep all the bugs from suddenly playing move sounds
   }
 
   onPostUpdate(engine: Engine, elapsed: number): void {
