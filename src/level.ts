@@ -12,12 +12,13 @@ export class DigLevel extends Scene {
   override onInitialize(engine: Engine): void {
 
     const groundGenerator = new GroundGenerator(this, this.random);
-    groundGenerator.generate();
 
     const player = new Player(5, 0, groundGenerator, this.random);
     this.player = player;
     this.add(player); 
 
+
+    groundGenerator.generate(player);
 
     const beetle = new Enemy(5, 3, 'beetle', player, groundGenerator, this.random);
     this.add(beetle);

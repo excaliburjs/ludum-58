@@ -4,9 +4,14 @@ export default {
   BackgroundAmbianceVolume: 0.5,
   BackgroundMusicVolume: 0.5,
 
+  EnemyPercent: {
+    worm:    .005,
+    beetle:   .01
+  },
+
   LootPercent: {
-    gold:   .0009,
-    silver: .0005,
+    gold:   .0001,
+    silver: .0009,
     red:     .005,
     blue:     .05,
     green:     .1,

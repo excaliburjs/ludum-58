@@ -5,6 +5,7 @@ export const Resources = {
   // Images
   Sword: new ImageSource("./images/sword.png"),
   Dirt: new ImageSource("./images/dirt_front.png"),
+  BackgroundDirt: new ImageSource("./images/dirt_back.png"),
   BeetleImage: new ImageSource("./images/beetle.png"),
 
   // Sound Effects

@@ -205,7 +205,9 @@ export class Player extends Actor {
       this.tileX = futureTile.x;
       this.tileY = futureTile.y;
 
+
       this.maybePickupLoot(futureTile);
+      const isSlow = this.ground.digTile(this.tileX, this.tileY);
 
       this.actions
         // .rotateTo(
@@ -215,7 +217,7 @@ export class Player extends Actor {
         .easeTo(
           // Tile pos is the world pixel position of the tile
           futureTile.pos,
-          500,
+          isSlow ? 500 : 150,
           EasingFunctions.EaseInOutCubic
         ).callMethod(() => {
           this.moving = false;

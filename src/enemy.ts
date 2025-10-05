@@ -55,6 +55,10 @@ export class Enemy extends Actor {
       } else {
         return;
       }
+      const currentTile = this.ground.getTile(this.tileX, this.tileY);
+      if (currentTile) {
+        currentTile.data.delete('enemy');
+      }
       // Resources.DigSound.play();
       // this.grid.digTile(futureTile.x, futureTile.y);
       // Tile x,y are the tile coordinates

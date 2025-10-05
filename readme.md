@@ -19,12 +19,13 @@
 * [x] Implement return collectables to surface
 * [x] Add Number GO UP UI
 * [x] Gem Capacity forcing you to return quickly
+* [x] Dug dirt is faster to traverse than undug dirt
+* [ ] Gems scatter around you when hit
 * [ ] Add Enemies that increase in frequences
 * [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add Proc Gen chunks
 * [ ] Add fighting certain enemies
 * [ ] Surface music
-* [ ] Dug dirt is faster to traverse than undug dirt
 * [x] Add touch controls
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
