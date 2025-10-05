@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "paths": {
+      "excalibur": ["./vendor/excalibur/build/dist/"]
+    },
     "target": "ESNext",
     "useDefineForClassFields": true,
     "module": "ESNext",

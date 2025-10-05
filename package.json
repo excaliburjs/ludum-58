@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run build:excalibur && tsc && vite build",
+    "build:excalibur": "cd vendor/excalibur && npm install && npm run build && cd ../../",
     "serve": "vite preview",
     "test": "npm run build && npx playwright test",
     "test:integration-update": "npx playwright test --update-snapshots"
@@ -21,13 +22,16 @@
   "license": "",
   "bugs": {},
   "homepage": "",
+  "alias": {
+    "excalibur": "./vendor/excalibur/build/esm/excalibur.js"
+  },
   "dependencies": {
     "classnames": "2.5.1",
-    "excalibur": "0.31.0",
     "store": "2.0.12"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
+    "@rollup/plugin-alias": "5.1.1",
     "@types/node": "^22.10.2",
     "@types/storejs": "2.0.3",
     "@types/zepto": "1.0.36",

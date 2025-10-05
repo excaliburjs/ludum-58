@@ -21,7 +21,7 @@ import { soundManager } from "./sound-manager-2";
 import Config from './config';
 
 export class Player extends Actor {
-  dir: ex.Vector = Vector.Right;
+  dir: Vector = Vector.Right;
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
   health: number = 3;

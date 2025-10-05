@@ -9,7 +9,7 @@ export type EnemyType = 'beetle' | 'worm';
 const dirs = [Vector.Left, Vector.Right, Vector.Up, Vector.Down];
 export class Enemy extends Actor {
 
-  dir: ex.Vector = Vector.Right;
+  dir: Vector = Vector.Right;
   moving: boolean = false;
   animation: Animation;
   attacking: boolean = false;

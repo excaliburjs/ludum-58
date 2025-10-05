@@ -25,14 +25,16 @@
 * [x] Add Proc Gen chunks
 * [x] Add touch controls (Currently disabled for perf)
 * [x] Add music layers implementation
-* [ ] Add Enemies that increase in frequences
+* [x] Add Surface music
 * [ ] Add game over screen
+* [ ] Add Enemies that increase in frequences
+* [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add shop
 * [ ] Add fighting certain enemies
-* [ ] Add 5 layers of dirt (with corresponding)
-* [ ] Add Surface music
 * [ ] Add graph of treasure collected over time/events
+   - Shareable on Socials
 * [ ] Add high score
+* [ ] Add title screen
 
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)
