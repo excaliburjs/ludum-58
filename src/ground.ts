@@ -9,14 +9,14 @@ import { soundManager } from "./sound-manager-2";
 
 
 export class GroundGenerator {
-  worldHeight = 200;
+  worldHeight = Config.WorldHeight;
   worldOrigin = vec(0, 64 * 5);
   startChunk = new TileMap({
     pos: this.worldOrigin,
     tileWidth: 64,
     tileHeight: 64,
-    rows: 200,
-    columns: 200
+    rows: Config.ChunkSize.height,
+    columns: Config.ChunkSize.width
   });
   visibleChunks: TileMap[] = []
   chunkMap: Map<string, TileMap> = new Map();
@@ -52,12 +52,39 @@ export class GroundGenerator {
     const screen = this.scene.engine.screen;
     const unsafeArea = this.scene.engine.screen.unsafeArea;
     const bottomLeft = screen.screenToWorldCoordinates(unsafeArea.bottomLeft);
+    const bottomRight = screen.screenToWorldCoordinates(unsafeArea.bottomRight);
+    const topLeft = screen.screenToWorldCoordinates(unsafeArea.topLeft);
+    const topRight = screen.screenToWorldCoordinates(unsafeArea.topRight);
 
     const tileBottomLeftX = Math.floor(bottomLeft.x / 64);
     const tileBottomLeftY = Math.floor(bottomLeft.y / 64);
-    const maybeTile = this.getTile(tileBottomLeftX, tileBottomLeftY);
-    if (!maybeTile) {
+    const maybeTile1 = this.getTile(tileBottomLeftX, tileBottomLeftY);
+    if (!maybeTile1) {
       this.generateChunk(Math.floor(tileBottomLeftX / this.startChunk.columns), Math.floor(tileBottomLeftY / this.startChunk.rows));
+    }
+
+
+    const tileTopLeftX = Math.floor(topLeft.x / 64);
+    const tileTopLeftY = Math.floor(topLeft.y / 64);
+    const maybeTile2 = this.getTile(tileTopLeftX, tileTopLeftY);
+    if (!maybeTile2) {
+      this.generateChunk(Math.floor(tileTopLeftX / this.startChunk.columns), Math.floor(tileTopLeftY / this.startChunk.rows));
+    }
+
+
+    const tileBottomRightX = Math.floor(bottomRight.x / 64);
+    const tileBottomRightY = Math.floor(bottomRight.y / 64);
+    const maybeTile3 = this.getTile(tileBottomRightX, tileBottomRightY);
+    if (!maybeTile3) {
+      this.generateChunk(Math.floor(tileBottomRightX / this.startChunk.columns), Math.floor(tileBottomRightY / this.startChunk.rows));
+    }
+
+
+    const tileTopRightX = Math.floor(topRight.x / 64);
+    const tileTopRightY = Math.floor(topRight.y / 64);
+    const maybeTile4 = this.getTile(tileTopRightX, tileTopRightY);
+    if (!maybeTile4) {
+      this.generateChunk(Math.floor(tileTopRightX / this.startChunk.columns), Math.floor(tileTopRightY / this.startChunk.rows));
     }
 
   }
@@ -83,8 +110,8 @@ export class GroundGenerator {
       pos: newChunkOrigin,
       tileWidth: 64,
       tileHeight: 64,
-      rows: 200,
-      columns: 200
+      rows: Config.ChunkSize.height,
+      columns: Config.ChunkSize.width
     });
 
     newChunk.pointer.useColliderShape = false;
@@ -178,7 +205,7 @@ export class GroundGenerator {
       while (newY < 0) {
         newY += this.startChunk.rows;
       }
-      return currentChunk.getTile(newX, newY);
+      return currentChunk.getTile(newX % Config.ChunkSize.width, newY % Config.ChunkSize.height);
     }
     return;
   }

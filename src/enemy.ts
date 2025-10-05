@@ -106,9 +106,9 @@ export class Enemy extends Actor {
         .easeTo(
           // Tile pos is the world pixel position of the tile
           futureTile.pos.add(vec(32, 32)),
-          500,
+          250,
           EasingFunctions.EaseInOutCubic
-        ).delay(1000).callMethod(() => {
+        ).delay(500).callMethod(() => {
           this.moving = false;
           const tile = this.ground.getTile(this.tileX, this.tileY);
           tile?.data.set('enemy', this);

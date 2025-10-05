@@ -4,6 +4,9 @@ export default {
   BackgroundAmbianceVolume: 0.5,
   BackgroundMusicVolume: 0.5,
 
+  ChunkSize: {width: 100, height: 100},
+  WorldHeight: 200,
+
   EnemyPercent: {
     worm:    .005,
     beetle:   .01
