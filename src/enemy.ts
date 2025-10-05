@@ -34,6 +34,20 @@ export class Enemy extends Actor {
 
   onPostUpdate(engine: Engine, elapsed: number): void {
     if (!this.moving) {
+      const dist = this.player.pos.sub(this.pos);
+      if (dist.magnitude < 400 && this.random.bool()) {
+        const playerDir = this.player.pos.sub(this.pos).normalize();
+        let minDot = -999;
+        let minDir = dirs[0];
+        for (let dir of dirs) {
+          const dot = playerDir.dot(dir);
+          if (dot > minDot) {
+            minDot = dot
+            minDir = dir;
+          }
+        }
+        this.moveInDirection(minDir);
+      }
       const newDir = this.random.pickOne(dirs);
       this.moveInDirection(newDir);
     }

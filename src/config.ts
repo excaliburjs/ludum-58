@@ -10,8 +10,8 @@ export default {
   },
 
   LootPercent: {
-    gold:   .0001,
-    silver: .0009,
+    gold:    .001,
+    silver:  .002,
     red:     .005,
     blue:     .05,
     green:     .1,
