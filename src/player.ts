@@ -8,6 +8,7 @@ import {
   EasingFunctions,
   Engine,
   Keys,
+  PointerComponent,
   Random,
   Side,
   Tile,
@@ -42,12 +43,9 @@ export class Player extends Actor {
       height: 64,
       color: Color.Blue,
       z: 10,
-      anchor: vec(0, 0), // Actors default center colliders and graphics with anchor (0.5, 0.5)
-      // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
-      // acc: vec(0, 400)
+      anchor: vec(0, 0), 
     });
-
-
+    this.removeComponent(PointerComponent);
   }
 
   override onInitialize(engine: Engine) {
@@ -62,9 +60,13 @@ export class Player extends Actor {
     this.addChild(this.down);
 
     this.left.on('pointerdown', () => this.moveInDirection(Vector.Left));
+    this.left.on('pointermove', () => this.moveInDirection(Vector.Left));
     this.right.on('pointerdown', () => this.moveInDirection(Vector.Right));
+    this.right.on('pointermove', () => this.moveInDirection(Vector.Right));
     this.up.on('pointerdown', () => this.moveInDirection(Vector.Up));
+    this.up.on('pointermove', () => this.moveInDirection(Vector.Up));
     this.down.on('pointerdown', () => this.moveInDirection(Vector.Down));
+    this.down.on('pointermove', () => this.moveInDirection(Vector.Down));
 
     engine.input.keyboard.on("hold", (evt) => {
       let dir = Vector.Down;

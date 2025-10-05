@@ -1,4 +1,19 @@
-import { AudioContextFactory, CoordPlane, DefaultLoader, Engine, ExcaliburGraphicsContext, Font, Label, MotionSystem, PointerSystem, Random, Scene, SceneActivationContext, TextAlign, vec } from "excalibur";
+import {
+  AudioContextFactory,
+  CoordPlane,
+  DefaultLoader,
+  Engine,
+  ExcaliburGraphicsContext,
+  Font,
+  Label,
+  MotionSystem,
+  Random,
+  Scene,
+  SceneActivationContext,
+  TextAlign,
+  vec
+} from "excalibur";
+
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
 // import { soundManager } from "./sound-manager-2";
@@ -17,8 +32,8 @@ export class DigLevel extends Scene {
 
   override onInitialize(engine: Engine): void {
     // perf hacks
-    const pointerSystem = this.world.systemManager.get(PointerSystem);
-    this.world.systemManager.removeSystem(pointerSystem!);
+    // const pointerSystem = this.world.systemManager.get(PointerSystem);
+    // this.world.systemManager.removeSystem(pointerSystem!);
     MotionSystem.prototype.captureOldTransformWithChildren = () => { }; // perf hack
 
     const groundGenerator = new GroundGenerator(this, this.random);
@@ -28,11 +43,9 @@ export class DigLevel extends Scene {
     this.player = player;
     this.add(player);
 
-
     const health = new Health();
     this.health = health;
     this.add(health);
-
 
     groundGenerator.generate(player);
     // groundGenerator.generateChunk(-1, 0);

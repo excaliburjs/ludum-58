@@ -1,4 +1,4 @@
-import { Random, Scene, Sprite, TileMap, vec } from "excalibur";
+import { PointerComponent, Random, Scene, Sprite, TileMap, vec } from "excalibur";
 import { Resources } from "./resources";
 import { Collectable } from "./collectable";
 
@@ -28,8 +28,7 @@ export class GroundGenerator {
   constructor(private scene: Scene, private random: Random) {
     this.dirtFront = Resources.Dirt.toSprite();
     this.dirtBack = Resources.BackgroundDirt.toSprite();
-    this.startChunk.pointer.useColliderShape = false;
-    this.startChunk.pointer.useGraphicsBounds = false;
+    this.startChunk.removeComponent(PointerComponent);
     this.chunkMap.set('0+0', this.startChunk);
   }
 
@@ -113,9 +112,7 @@ export class GroundGenerator {
       rows: Config.ChunkSize.height,
       columns: Config.ChunkSize.width
     });
-
-    newChunk.pointer.useColliderShape = false;
-    newChunk.pointer.useGraphicsBounds = false;
+    newChunk.removeComponent(PointerComponent);
     this.chunkMap.set(coord, newChunk);
 
     this.scene.add(newChunk);

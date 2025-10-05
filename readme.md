@@ -23,8 +23,8 @@
 * [x] Add hearts for you run
 * [x] Gems scatter around you when hit
 * [x] Add Proc Gen chunks
-* [?] Add touch controls (Currently disabled for perf)
-* [ ] Add music layers implementation
+* [x] Add touch controls (Currently disabled for perf)
+* [x] Add music layers implementation
 * [ ] Add Enemies that increase in frequences
 * [ ] Add game over screen
 * [ ] Add shop

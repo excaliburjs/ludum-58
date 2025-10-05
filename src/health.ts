@@ -1,4 +1,4 @@
-import { Actor, CoordPlane, Engine, Sprite, vec } from "excalibur";
+import { Actor, CoordPlane, Engine, PointerComponent, Sprite, vec } from "excalibur";
 import { Resources } from "./resources";
 
 
@@ -15,6 +15,7 @@ export class Health extends Actor {
     });
 
     this.heartSprite = Resources.Heart.toSprite();
+    this.removeComponent(PointerComponent);
   }
 
   onInitialize(engine: Engine): void {

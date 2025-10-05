@@ -1,4 +1,4 @@
-import { Actor, Color, Rectangle, vec } from "excalibur";
+import { Actor, Color, PointerComponent, Rectangle, vec } from "excalibur";
 import { GroundGenerator } from "./ground";
 import Config from './config';
 import { soundManager } from "./sound-manager-2";
@@ -43,6 +43,7 @@ export class Collectable extends Actor {
 
     const tile = ground.getTile(tileX, tileY);
     tile?.data.set('loot', this);
+    this.removeComponent(PointerComponent);
   }
 
   playPickup() {

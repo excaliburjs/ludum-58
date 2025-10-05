@@ -1,4 +1,4 @@
-import { Actor, Animation, AnimationStrategy, EasingFunctions, Engine, Random, RotationType, vec, Vector } from "excalibur";
+import { Actor, Animation, AnimationStrategy, EasingFunctions, Engine, PointerComponent, Random, RotationType, vec, Vector } from "excalibur";
 import { GroundGenerator } from "./ground";
 import { BeetleSheet } from "./resources";
 import { Player } from "./player";
@@ -32,8 +32,7 @@ export class Enemy extends Actor {
       AnimationStrategy.PingPong
     );
     this.graphics.use(this.animation);
-    this.pointer.useColliderShape = false;
-    this.pointer.useGraphicsBounds = false;
+    this.removeComponent(PointerComponent);
   }
 
   onInitialize(engine: Engine): void {
