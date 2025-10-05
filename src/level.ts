@@ -54,9 +54,11 @@ export class DigLevel extends Scene {
 
   restart() {
     this.clear(false);
+    this.camera.clearAllStrategies();
 
     this.gameover = false;
     this.gameOverEl.hide();
+
 
     this.onInitialize(this.engine);
 
