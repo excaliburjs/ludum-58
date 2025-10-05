@@ -18,7 +18,7 @@
 * [x] Implement collectables
 * [x] Implement return collectables to surface
 * [x] Add Number GO UP UI
-* [ ] Gem Capacity forcing you to return quickly
+* [x] Gem Capacity forcing you to return quickly
 * [ ] Add Enemies that increase in frequences
 * [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add Proc Gen chunks
