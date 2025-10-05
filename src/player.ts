@@ -202,8 +202,8 @@ export class Player extends Actor {
       // Resources.DigSound.play();
       // this.grid.digTile(futureTile.x, futureTile.y);
       // Tile x,y are the tile coordinates
-      this.tileX = futureTile.x;
-      this.tileY = futureTile.y;
+      this.tileX = newTileCoord.x;
+      this.tileY = newTileCoord.y;
 
 
       this.maybePickupLoot(futureTile);

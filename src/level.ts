@@ -19,6 +19,7 @@ export class DigLevel extends Scene {
 
 
     groundGenerator.generate(player);
+    groundGenerator.generateChunk(-1, 0);
 
     const beetle = new Enemy(5, 3, 'beetle', player, groundGenerator, this.random);
     this.add(beetle);

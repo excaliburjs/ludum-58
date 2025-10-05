@@ -9,22 +9,27 @@ import { Player } from "./player";
 
 export class GroundGenerator {
   worldHeight = 200;
+  worldOrigin = vec(0, 64 * 5);
   startChunk = new TileMap({
-    pos: vec(0, 64 * 5),
+    pos: this.worldOrigin,
     tileWidth: 64,
     tileHeight: 64,
     rows: 200,
     columns: 200
   });
+  visibleChunks: TileMap[] = []
+  chunkMap: Map<string, TileMap> = new Map();
   chunks: TileMap[] = [];
   dirtFront: Sprite;
   dirtBack: Sprite;
+  player!: Player;
 
   constructor(private scene: Scene, private random: Random) {
     this.dirtFront = Resources.Dirt.toSprite();
     this.dirtBack = Resources.BackgroundDirt.toSprite();
     this.startChunk.pointer.useColliderShape = false;
     this.startChunk.pointer.useGraphicsBounds = false;
+    this.chunkMap.set('0+0', this.startChunk);
   }
 
   digTile(x: number, y: number): boolean {
@@ -41,7 +46,51 @@ export class GroundGenerator {
     return true;
   }
 
+
+  generateChunk(chunkX: number, chunkY: number) {
+    const coord = `${chunkX}+${chunkY}`;
+    const maybeChunk = this.chunkMap.get(coord);
+    if (maybeChunk || chunkY < 0) {
+      return;
+    }
+
+    const newChunkOrigin = this.worldOrigin.add(
+      vec(
+        chunkX * this.startChunk.width,
+        chunkY * this.startChunk.height
+      )
+    );
+
+    const newChunk = new TileMap({
+      pos: newChunkOrigin,
+      tileWidth: 64,
+      tileHeight: 64,
+      rows: 200,
+      columns: 200
+    });
+
+    newChunk.pointer.useColliderShape = false;
+    newChunk.pointer.useGraphicsBounds = false;
+    this.chunkMap.set(coord, newChunk);
+
+    this.scene.add(newChunk);
+    for (let i = 0; i < newChunk.tiles.length; i++) {
+      const tile = newChunk.tiles[i];
+      if (tile.y === 0 && chunkY === 0) {
+        tile.data.set('dug', true);
+      } else {
+        tile.addGraphic(this.dirtFront);
+        tile.solid = true;
+
+        this.generateCollectables(tile.x + chunkX * this.startChunk.columns, tile.y + chunkY * this.startChunk.rows);
+        this.generateEnemy(tile.x + chunkX * this.startChunk.columns, tile.y + chunkY * this.startChunk.rows, this.player);
+      }
+    }
+
+  }
+
   generate(player: Player) {
+    this.player = player;
     this.scene.add(this.startChunk);
     for (let i = 0; i < this.startChunk.tiles.length; i++) {
       const tile = this.startChunk.tiles[i];
@@ -99,7 +148,21 @@ export class GroundGenerator {
   }
 
   getTile(x: number, y: number) {
-    // TODO handle generated chunks
-    return this.startChunk.getTile(x, y);
+    const xcoord = Math.floor(x / this.startChunk.columns);
+    const ycoord = Math.floor(y / this.startChunk.rows);
+    const chunkCoord = `${xcoord}+${ycoord}`;
+    const currentChunk = this.chunkMap.get(chunkCoord);
+    if (currentChunk) {
+      let newX = x;
+      while (newX < 0) {
+        newX += this.startChunk.columns;
+      }
+      let newY = y;
+      while (newY < 0) {
+        newY += this.startChunk.rows;
+      }
+      return currentChunk.getTile(newX, newY);
+    }
+    return;
   }
 }
