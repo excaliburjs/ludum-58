@@ -4,6 +4,15 @@ export default {
   BackgroundAmbianceVolume: 0.5,
   BackgroundMusicVolume: 0.5,
 
+  Starting: {
+    seed: 1337,
+    health: 3,
+    score: 0,
+    capacity: 10,
+    tileX: 5,
+    tileY: 0,
+  },
+
   LootSpreadDistance: 200,
   ChunkSize: {width: 100, height: 100},
   WorldHeight: 200,

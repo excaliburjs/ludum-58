@@ -10,6 +10,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js" crossorigin="anonymous"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <script type="module" src="./src/components.ts"></script>
     </head>
     <body>
         <main>
@@ -24,6 +25,7 @@
                 <li><a href="credits.html">Credits</a></li>
             </ul>
             <a id="commitRef" href="https://github.com/excaliburjs/ludum-58/commit/{{ commitRef }}">{{ commitRefShort }}</a>
+            <game-over></game-over>
         </main>
         <script type="module" src="./src/main.ts"></script>
     </body>

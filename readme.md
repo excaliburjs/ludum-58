@@ -26,6 +26,7 @@
 * [x] Add touch controls (Currently disabled for perf)
 * [x] Add music layers implementation
 * [x] Add Surface music
+* [x] Vendor excalibur
 * [ ] Add game over screen
 * [ ] Add Enemies that increase in frequences
 * [ ] Add 5 layers of dirt (with corresponding)
@@ -34,7 +35,11 @@
 * [ ] Add graph of treasure collected over time/events
    - Shareable on Socials
 * [ ] Add high score
+
+## Low Priority
 * [ ] Add title screen
+* [ ] Add social cards
+* [ ] Wire up credits/buttons
 
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)

@@ -1,4 +1,4 @@
-import { PointerComponent, Random, Scene, Sprite, TileMap, vec } from "excalibur";
+import { PointerComponent, Random, Sprite, TileMap, vec } from "excalibur";
 import { Resources } from "./resources";
 import { Collectable } from "./collectable";
 
@@ -6,6 +6,7 @@ import Config from './config';
 import { Enemy } from "./enemy";
 import { Player } from "./player";
 import { soundManager } from "./sound-manager-2";
+import { DigLevel } from "./level";
 
 
 export class GroundGenerator {
@@ -25,7 +26,7 @@ export class GroundGenerator {
   dirtBack: Sprite;
   player!: Player;
 
-  constructor(private scene: Scene, private random: Random) {
+  constructor(private scene: DigLevel, private random: Random) {
     this.dirtFront = Resources.Dirt.toSprite();
     this.dirtBack = Resources.BackgroundDirt.toSprite();
     this.startChunk.removeComponent(PointerComponent);
@@ -161,7 +162,7 @@ export class GroundGenerator {
     for (let enemyType in Config.EnemyPercent) {
       if (enemyType in Config.EnemyPercent) {
         if ((1.0 - (Config.EnemyPercent as any)[enemyType as string] - depthBonus) < ran) {
-          const enemy = new Enemy(x, y, enemyType as any, player, this, this.random);
+          const enemy = new Enemy(this.scene, x, y, enemyType as any, player, this, this.random);
           this.scene.add(enemy);
           break;
         }

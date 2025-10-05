@@ -26,6 +26,8 @@ export const Resources = {
   BeetleHurt: new Sound('./sounds/beetle_hurt.mp3'),
   BeetleMove: new Sound('./sounds/beetle_move.mp3'),
 
+  GameOver: new Sound('./sounds/gameover.mp3'),
+
   // Music
   Music1: new Sound({
     paths: ['./sounds/gem jam (cavernous demo).mp3'],

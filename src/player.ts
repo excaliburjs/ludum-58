@@ -19,14 +19,15 @@ import { GroundGenerator } from "./ground";
 import { Collectable } from "./collectable";
 import { soundManager } from "./sound-manager-2";
 import Config from './config';
+import { DigLevel } from "./level";
 
 export class Player extends Actor {
   dir: Vector = Vector.Right;
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
-  health: number = 3;
-  score: number = 0;
-  capacity: number = 10;
+  health: number = Config.Starting.health;
+  score: number = Config.Starting.score;
+  capacity: number = Config.Starting.capacity;
   invincible: boolean = false;
 
   // touch sensors
@@ -34,7 +35,7 @@ export class Player extends Actor {
   right!: Actor;
   up!: Actor;
   down!: Actor;
-  constructor(public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
+  constructor(public level: DigLevel, public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
       name: 'Player',
@@ -119,8 +120,14 @@ export class Player extends Actor {
 
 
   takeDamage() {
+    if (this.level.gameover) return;
     if (this.invincible) return;
+
     this.health--;
+
+    if (this.health <= 0) {
+      this.level.triggerGameOver();
+    }
 
     const me = this;
     coroutine(function*() {

@@ -3,6 +3,7 @@ import { GroundGenerator } from "./ground";
 import { BeetleSheet } from "./resources";
 import { Player } from "./player";
 import { soundManager } from "./sound-manager-2";
+import { DigLevel } from "./level";
 
 export type EnemyType = 'beetle' | 'worm';
 
@@ -13,7 +14,7 @@ export class Enemy extends Actor {
   moving: boolean = false;
   animation: Animation;
   attacking: boolean = false;
-  constructor(public tileX: number, public tileY: number, public type: EnemyType, public player: Player, public ground: GroundGenerator, private random: Random) {
+  constructor(public level: DigLevel, public tileX: number, public tileY: number, public type: EnemyType, public player: Player, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
       name: `Enemey[${type}]`,
@@ -40,6 +41,7 @@ export class Enemy extends Actor {
   }
 
   onPostUpdate(engine: Engine, elapsed: number): void {
+    if (this.level.gameover) return;
     if (this.isOffScreen) return;
     if (!this.moving) {
       const dist = this.player.pos.sub(this.pos);

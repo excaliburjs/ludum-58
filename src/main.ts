@@ -1,6 +1,7 @@
 import { Color, DisplayMode, Engine, FadeInOut } from "excalibur";
 import { loader } from "./resources";
 import { DigLevel } from "./level";
+import "./components"
 // import { loadPreferences } from "./preferences";
 // import { SoundManager } from "./sound-manager";
 

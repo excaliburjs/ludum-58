@@ -16,21 +16,59 @@ import {
 
 import { Player } from "./player";
 import { GroundGenerator } from "./ground";
-// import { soundManager } from "./sound-manager-2";
 import { Enemy } from "./enemy";
 import { Health } from "./health";
 import { Resources } from "./resources";
 import Config from './config';
+import { GameOver } from "./game-over";
 
 export class DigLevel extends Scene {
-  public random = new Random(1337);
+  public gameover = false;
+  public random = new Random(Config.Starting.seed);
   public label!: Label;
   public player!: Player;
   public gembagLabel!: Label;
   groundGenerator!: GroundGenerator;
   health!: Health;
+  gameOverEl!: GameOver;
+
+  triggerGameOver() {
+    if (!this.gameover) {
+
+      this.gameover = true;
+      this.engine.timescale = 0;
+
+      this.engine.clock.schedule(() => {
+        this.gameOverEl.show();
+        Resources.GameOver.play();
+      },1000);
+
+      Resources.MusicSurface.stop();
+      Resources.MusicIndDrums.stop();
+      Resources.MusicIndTopper.stop();
+      Resources.MusicGroovyDrums.stop();
+      Resources.MusicGroovyTopper.stop();
+
+    }
+  }
+
+  restart() {
+    this.clear(false);
+
+    this.gameover = false;
+    this.gameOverEl.hide();
+
+    this.onInitialize(this.engine);
+
+    this.engine.timescale = 1;
+    // Re-gen tiles
+  }
 
   override onInitialize(engine: Engine): void {
+
+    const gameOverEl = document.getElementsByTagName('game-over')[0]! as GameOver;
+    gameOverEl.level = this;
+    this.gameOverEl = gameOverEl;
     // perf hacks
     // const pointerSystem = this.world.systemManager.get(PointerSystem);
     // this.world.systemManager.removeSystem(pointerSystem!);
@@ -39,7 +77,7 @@ export class DigLevel extends Scene {
     const groundGenerator = new GroundGenerator(this, this.random);
     this.groundGenerator = groundGenerator;
 
-    const player = new Player(5, 0, groundGenerator, this.random);
+    const player = new Player(this, Config.Starting.tileX, Config.Starting.tileY, groundGenerator, this.random);
     this.player = player;
     this.add(player);
 
@@ -50,10 +88,10 @@ export class DigLevel extends Scene {
     groundGenerator.generate(player);
     // groundGenerator.generateChunk(-1, 0);
 
-    const beetle = new Enemy(5, 3, 'beetle', player, groundGenerator, this.random);
+    const beetle = new Enemy(this, 5, 3, 'beetle', player, groundGenerator, this.random);
     this.add(beetle);
 
-    const beetle2 = new Enemy(6, 22, 'beetle', player, groundGenerator, this.random);
+    const beetle2 = new Enemy(this, 6, 22, 'beetle', player, groundGenerator, this.random);
     this.add(beetle2);
 
     this.camera.pos = engine.screen.center;
@@ -67,11 +105,9 @@ export class DigLevel extends Scene {
     Resources.MusicGroovyDrums.play(0, time);
     Resources.MusicGroovyTopper.play(0, time);
 
-    // soundManager.play('indDrums');
-    // soundManager.play('indTopper');
 
     this.label = new Label({
-      pos: vec(engine.screen.getScreenBounds().width - 20, 20),
+      pos: vec(engine.screen.contentArea.width - 20, 20),
       text: 'Score: 0',
       coordPlane: CoordPlane.Screen,
       font: new Font({
@@ -123,14 +159,15 @@ export class DigLevel extends Scene {
     const worldLayer = (Config.WorldHeight / 5) / 4;
 
     switch (true) {
-      case (this.player.tileY < 3): {
-        const volume = Math.max((this.player.tileY % 3) / 3, 0);
+      case (this.player.tileY < 1): {
+        const volume = Math.max((this.player.tileY % 1) / 1, 0);
         Resources.MusicSurface.volume = .5 * (1.0 - volume);
         Resources.MusicIndDrums.volume = .5 * volume;
         break;
       }
       case (this.player.tileY < worldLayer): {
         const volume = Math.max((this.player.tileY % worldLayer) / worldLayer, 0);
+        Resources.MusicIndDrums.volume = .5;
         Resources.MusicSurface.volume = 0;
         Resources.MusicIndTopper.volume = .5 * volume; // Fade in
         break;
