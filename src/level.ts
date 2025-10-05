@@ -46,7 +46,7 @@ export class DigLevel extends Scene {
 
     this.gembagLabel = new Label({
       pos: vec(20, 20),
-      text: 'Gem Bag',
+      text: `Gem Bag: 0/${player.capacity}`,
       coordPlane: CoordPlane.Screen,
       font: new Font({
         textAlign: TextAlign.Left,
@@ -78,6 +78,7 @@ export class DigLevel extends Scene {
   override onPostUpdate(engine: Engine, elapsedMs: number): void {
     // Called after everything updates in the scene
     this.label.text = `Score ${this.player.score}`;
+    this.gembagLabel.text = `Gem Bag: ${this.player.pendingLoot.length}/${this.player.capacity}`;
   }
 
   override onPreDraw(ctx: ExcaliburGraphicsContext, elapsedMs: number): void {

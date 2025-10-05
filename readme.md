@@ -20,8 +20,11 @@
 * [x] Add Number GO UP UI
 * [ ] Gem Capacity forcing you to return quickly
 * [ ] Add Enemies that increase in frequences
+* [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add Proc Gen chunks
 * [ ] Add fighting certain enemies
+* [ ] Surface music
+* [ ] Dug dirt is faster to traverse than undug dirt
 * [x] Add touch controls
 * Art: Gems, Treasures, etc
 * Art: Miner (Dwarf, Gnome, Multiple)

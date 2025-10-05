@@ -23,7 +23,10 @@ export class Player extends Actor {
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
   score: number = 0;
+  capacity: number = 10;
   invincible: boolean = false;
+
+  // touch sensors
   left!: Actor;
   right!: Actor;
   up!: Actor;
@@ -107,6 +110,7 @@ export class Player extends Actor {
           loot.kill();
         });
     }
+    this.pendingLoot.length = 0;
   }
 
 
@@ -158,6 +162,10 @@ export class Player extends Actor {
   }
 
   maybePickupLoot(futureTile: Tile) {
+    if (this.pendingLoot.length >= this.capacity) {
+      // TODO play womp womp sound
+      return;
+    }
 
     const maybeLoot = futureTile.data.get('loot');
     if (maybeLoot instanceof Collectable) {
