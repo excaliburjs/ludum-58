@@ -7,6 +7,7 @@ export const Resources = {
   Dirt: new ImageSource("./images/dirt_front.png"),
   BackgroundDirt: new ImageSource("./images/dirt_back.png"),
   BeetleImage: new ImageSource("./images/beetle.png"),
+  Heart: new ImageSource("./images/heart.png"),
 
   // Sound Effects
   Projectile: new Sound('./sounds/template-sample-sound-projectile.mp3'),

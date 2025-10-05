@@ -22,6 +22,7 @@ export class Player extends Actor {
   dir: ex.Vector = Vector.Right;
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
+  health: number = 3;
   score: number = 0;
   capacity: number = 10;
   invincible: boolean = false;
@@ -99,7 +100,7 @@ export class Player extends Actor {
     let delay = 0;
     for (let loot of this.pendingLoot) {
       loot.actions
-        .delay(delay += 40)
+        .delay(delay += 70)
         .moveTo({
           pos: vec(this.scene!.engine.screen.getScreenBounds().width - 20, 20),
           easing: EasingFunctions.EaseInOutCubic,
@@ -116,6 +117,7 @@ export class Player extends Actor {
 
   takeDamage() {
     if (this.invincible) return;
+    this.health--;
 
     const me = this;
     coroutine(function*() {
