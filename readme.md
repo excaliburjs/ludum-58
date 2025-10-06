@@ -31,6 +31,8 @@
 * [x] Add Enemies that increase in frequences
 * [x] Different enemy behavior
 * [ ] Add shop
+* [ ] Fix audio buttons
+* [ ] Spruce game over screen
 * [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add fighting certain enemies
 * [ ] Add graph of treasure collected over time/events
