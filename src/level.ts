@@ -5,7 +5,6 @@ import {
   DefaultLoader,
   Engine,
   ExcaliburGraphicsContext,
-  Font,
   Label,
   MotionSystem,
   Random,
