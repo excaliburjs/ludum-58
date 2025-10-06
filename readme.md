@@ -30,6 +30,7 @@
 * [x] Add game over screen
 * [x] Add Enemies that increase in frequences
 * [x] Different enemy behavior
+* [x] Add silver/gold sprites
 * [ ] Add shop
 * [ ] Fix audio buttons
 * [ ] Spruce game over screen
@@ -44,8 +45,9 @@
 * [ ] Add title screen
 * [ ] Better Font
 * [ ] Add value floating number
-* [ ] Add social cards
-* [ ] Wire up credits/buttons
+* [x] Add social cards
+* [x] Wire up credits
+* [ ] Wire up gamepad
 
 * [x] Art: Gems, Treasures, etc
 * [x] Art: Miner (Dwarf, Gnome, Multiple)
