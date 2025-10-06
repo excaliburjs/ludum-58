@@ -9,6 +9,7 @@ export const Resources = {
   Sword: new ImageSource("./images/sword.png"),
   Dirt: new ImageSource("./images/dirt_front.png"),
   BackgroundDirt: new ImageSource("./images/dirt_back.png"),
+  ChestImage: new ImageSource('./images/chest.png'),
 
   BeetleImage: new ImageSource("./images/beetle.png"),
   BeetleImage1: new ImageSource('./images/beetle1.png'),

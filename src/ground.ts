@@ -7,6 +7,7 @@ import { Enemy } from "./enemy";
 import { Player } from "./player";
 import { soundManager } from "./sound-manager-2";
 import { DigLevel } from "./level";
+import { Chest } from "./chest";
 
 
 export class GroundGenerator {
@@ -144,6 +145,11 @@ export class GroundGenerator {
         this.generateEnemy(tile.x + chunkX * this.startChunk.columns, tile.y + chunkY * this.startChunk.rows, this.player);
       }
     }
+
+    this.scene.add(new Chest(10 + chunkX * this.startChunk.columns, 0, this));
+    this.scene.add(new Chest(10+25 + chunkX * this.startChunk.columns, 0, this));
+    this.scene.add(new Chest(10+50 + chunkX * this.startChunk.columns, 0, this));
+    this.scene.add(new Chest(10+75 + chunkX * this.startChunk.columns, 0, this));
   }
 
   generate(player: Player) {
@@ -164,6 +170,12 @@ export class GroundGenerator {
 
     this.scene.add(new Collectable(10, 3, 'gold', this));
     this.scene.add(new Collectable(2, 3, 'silver', this));
+
+    this.scene.add(new Chest(10, 0, this));
+
+    this.scene.add(new Chest(10+25, 0, this));
+    this.scene.add(new Chest(10+50, 0, this));
+    this.scene.add(new Chest(10+75, 0, this));
   }
 
   generateEnemy(x: number, y: number, player: Player) {
