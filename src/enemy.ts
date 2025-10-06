@@ -9,7 +9,7 @@ export type EnemyType = 'beetle' | 'mole' | 'worm';
 
 const dirs = [Vector.Left, Vector.Right, Vector.Up, Vector.Down];
 export class Enemy extends Actor {
-
+  facingRight = true;
   dir: Vector = Vector.Right;
   moving: boolean = false;
   beetleAnim: Animation;
@@ -134,13 +134,18 @@ export class Enemy extends Actor {
       // Tile x,y are the tile coordinates
       this.tileX = newTileCoord.x;
       this.tileY = newTileCoord.y;
+      this.facingRight = direction.x > 0;
+
+      this.beetleAnim.flipHorizontal = this.facingRight;
+      this.wormAnim.flipHorizontal = this.facingRight;
+      this.moleAnim.flipHorizontal = this.facingRight;
 
       if (!this.isOffScreen) {
         soundManager.play('beetleMove');
       }
       this.actions
         .rotateTo(
-          Math.atan2(direction.y, direction.x) + Math.PI,
+          Math.atan2(-direction.y, 0),
           Math.PI * 4,
           RotationType.ShortestPath)
         .easeTo(

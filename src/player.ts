@@ -62,7 +62,7 @@ export class Player extends Actor {
         { graphic: Resources.PlayerWalk1.toSprite() },
         { graphic: Resources.PlayerWalk2.toSprite() },
       ],
-      frameDuration: 100
+      frameDuration: 200
     });
     this.walk.strategy = AnimationStrategy.Loop;
 
@@ -301,11 +301,11 @@ export class Player extends Actor {
 
       if (!isSlow) {
         soundManager.play('playerStep');
-        this.walk.flipHorizontal = this.facingRight ? true : false;
+        this.walk.flipHorizontal = this.facingRight;
         this.graphics.use(this.walk);
       } else {
         // TODO play mining sound
-        this.mine.flipHorizontal = this.facingRight ? true : false;
+        this.mine.flipHorizontal = this.facingRight;
         this.graphics.use(this.mine);
       }
       this.actions
