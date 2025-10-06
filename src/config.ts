@@ -19,6 +19,7 @@ export default {
 
   EnemyPercent: {
     worm:    .005,
+    mole:    .009,
     beetle:   .01
   },
 

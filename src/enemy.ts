@@ -5,7 +5,7 @@ import { Player } from "./player";
 import { soundManager } from "./sound-manager-2";
 import { DigLevel } from "./level";
 
-export type EnemyType = 'beetle' | 'worm';
+export type EnemyType = 'beetle' | 'mole' | 'worm';
 
 const dirs = [Vector.Left, Vector.Right, Vector.Up, Vector.Down];
 export class Enemy extends Actor {
@@ -14,6 +14,8 @@ export class Enemy extends Actor {
   moving: boolean = false;
   beetleAnim: Animation;
   attacking: boolean = false;
+  wormAnim: Animation;
+  moleAnim: Animation;
   constructor(
     public level: DigLevel,
     public tileX: number,
@@ -42,7 +44,34 @@ export class Enemy extends Actor {
       strategy: AnimationStrategy.Loop
     });
 
+    this.wormAnim = new Animation({
+      frames: [
+        { graphic: Resources.WormImage1.toSprite() },
+        { graphic: Resources.WormImage2.toSprite() }
+      ],
+      frameDuration: 150,
+      strategy: AnimationStrategy.Loop
+    });
+
+    this.moleAnim = new Animation({
+      frames: [
+        { graphic: Resources.MoleImage1.toSprite() },
+        { graphic: Resources.MoleImage2.toSprite() }
+      ],
+      frameDuration: 150,
+      strategy: AnimationStrategy.Loop
+    });
+
     this.graphics.use(this.beetleAnim);
+
+    switch(type) {
+      case 'beetle': this.graphics.use(this.beetleAnim); break;
+      case 'worm': this.graphics.use(this.wormAnim); break;
+      case 'mole': this.graphics.use(this.moleAnim); break;
+      default:
+        throw new Error("Invalid Enemy Type", type as any);
+    }
+
     this.removeComponent(PointerComponent);
   }
 
