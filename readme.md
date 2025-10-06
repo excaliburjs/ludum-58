@@ -31,8 +31,8 @@
 * [x] Add Enemies that increase in frequences
 * [x] Different enemy behavior
 * [x] Add silver/gold sprites
+* [x] Better Font
 * [ ] Bag full toast
-* [ ] Better Font
 * [ ] HUD background
 * [ ] Add shop
 * [ ] Fix audio buttons
