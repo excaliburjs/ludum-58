@@ -305,7 +305,6 @@ export class Player extends Actor {
         this.walk.flipHorizontal = this.facingRight;
         this.graphics.use(this.walk);
       } else {
-        // TODO play mining sound
         this.mine.flipHorizontal = this.facingRight;
         this.graphics.use(this.mine);
       }

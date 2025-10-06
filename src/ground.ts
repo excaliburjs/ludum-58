@@ -59,7 +59,7 @@ export class GroundGenerator {
         tile.data.set('dug', false);
         tile.clearGraphics();
         tile.addGraphic(this.dirtFront);
-        // TODO play fill in sound
+        soundManager.play('playerDig');
       }
       return true;
     }

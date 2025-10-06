@@ -33,7 +33,7 @@
 * [x] Add silver/gold sprites
 * [x] Better Font
 * [x] Bag full toast
-* [ ] bug enemies can make it to row 0
+* [x] bug enemies can make it to row 0
 * [ ] HUD background
 * [ ] Add shop
 * [ ] Fix audio buttons
