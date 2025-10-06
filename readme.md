@@ -38,6 +38,7 @@
 
 ## Low Priority
 * [ ] Add title screen
+* [ ] Add value floating number
 * [ ] Add social cards
 * [ ] Wire up credits/buttons
 

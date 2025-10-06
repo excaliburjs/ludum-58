@@ -1,6 +1,6 @@
 import { Actor, Animation, AnimationStrategy, EasingFunctions, Engine, PointerComponent, Random, RotationType, vec, Vector } from "excalibur";
 import { GroundGenerator } from "./ground";
-import { BeetleSheet, Resources } from "./resources";
+import { Resources } from "./resources";
 import { Player } from "./player";
 import { soundManager } from "./sound-manager-2";
 import { DigLevel } from "./level";
@@ -12,28 +12,28 @@ export class Enemy extends Actor {
 
   dir: Vector = Vector.Right;
   moving: boolean = false;
-  animation: Animation;
+  beetleAnim: Animation;
   attacking: boolean = false;
-  constructor(public level: DigLevel, public tileX: number, public tileY: number, public type: EnemyType, public player: Player, public ground: GroundGenerator, private random: Random) {
+  constructor(
+    public level: DigLevel,
+    public tileX: number,
+    public tileY: number,
+    public type: EnemyType,
+    public player: Player,
+    public ground: GroundGenerator,
+    private random: Random) {
+
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
+
     super({
       name: `Enemey[${type}]`,
       pos: worldPosFromTile.add(vec(32, 32)),
       width: 64,
       height: 64,
       z: 10,
-      // collisionType: CollisionType.Active, // Collision Type Active means this participates in collisions read more https://excaliburjs.com/docs/collisiontypes
-      // acc: vec(0, 400)
     });
 
-    // this.animation = Animation.fromSpriteSheet(
-    //   BeetleSheet,
-    //   [0, 1, 2],
-    //   100,
-    //   AnimationStrategy.PingPong
-    // );
-
-    this.animation = new Animation({
+    this.beetleAnim = new Animation({
       frames: [
         { graphic: Resources.BeetleImage1.toSprite() },
         { graphic: Resources.BeetleImage2.toSprite() }
@@ -42,7 +42,7 @@ export class Enemy extends Actor {
       strategy: AnimationStrategy.Loop
     });
 
-    this.graphics.use(this.animation);
+    this.graphics.use(this.beetleAnim);
     this.removeComponent(PointerComponent);
   }
 
