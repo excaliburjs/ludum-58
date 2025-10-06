@@ -32,7 +32,8 @@
 * [x] Different enemy behavior
 * [x] Add silver/gold sprites
 * [x] Better Font
-* [ ] Bag full toast
+* [x] Bag full toast
+* [ ] bug enemies can make it to row 0
 * [ ] HUD background
 * [ ] Add shop
 * [ ] Fix audio buttons
@@ -52,9 +53,6 @@
 * [ ] Wire up gamepad
 * [ ] Bag full toast
 * [ ] Add title screen
-* [ ] Better Font
-* [ ] Add value floating number
-* [ ] Add social cards
 * [ ] Wire up credits/buttons
 
 * [x] Art: Gems, Treasures, etc

@@ -21,6 +21,7 @@ import { Health } from "./health";
 import { Resources } from "./resources";
 import Config from './config';
 import { GameOver } from "./game-over";
+import { Toast } from "./toast";
 
 export class DigLevel extends Scene {
   public gameover = false;
@@ -31,6 +32,7 @@ export class DigLevel extends Scene {
   groundGenerator!: GroundGenerator;
   health!: Health;
   gameOverEl!: GameOver;
+  bagFullToast!: Toast;
 
   triggerGameOver() {
     if (!this.gameover) {
@@ -71,6 +73,12 @@ export class DigLevel extends Scene {
     const gameOverEl = document.getElementsByTagName('game-over')[0]! as GameOver;
     gameOverEl.level = this;
     this.gameOverEl = gameOverEl;
+
+    const bagFullToast = new Toast("Bag Full! Return to Surface!");
+    this.bagFullToast = bagFullToast;
+    this.add(bagFullToast);
+
+
     // perf hacks
     // const pointerSystem = this.world.systemManager.get(PointerSystem);
     // this.world.systemManager.removeSystem(pointerSystem!);

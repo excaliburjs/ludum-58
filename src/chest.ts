@@ -1,10 +1,10 @@
-import { Actor, PointerComponent, vec } from "excalibur";
+import { Actor, PointerComponent, Sprite, vec } from "excalibur";
 import { GroundGenerator } from "./ground";
 import { Resources } from "./resources";
 
 
 export class Chest extends Actor {
-  chest: import("/home/erik/projects/ludum-58/vendor/excalibur/build/dist/index").Sprite;
+  chest: Sprite;
   constructor(x: number, y: number, ground: GroundGenerator){
 
     const worldPosFromTile = ground.getTile(x, y)?.pos ?? vec(0, 0);

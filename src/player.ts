@@ -254,6 +254,7 @@ export class Player extends Actor {
     if (maybeLoot instanceof Collectable) {
       if (this.pendingLoot.length >= this.capacity) {
         soundManager.play('bagFull');
+        this.level.bagFullToast.pop();
         return;
       }
 
