@@ -1,10 +1,18 @@
-# GAME_JAM_NAME GAME_JAM_NUMBER
+# Gem Jam - Ludum 58
 
-Replace the relevant strings in the [String Variables](/string-vars.md) file with the relevant information.
+## Concept
 
-Visit https://excaliburjs.com/REPO_NAME/ to play!
+* You are a miner digging down an infinitely generated ground for gems, jewels, gold, treasure, etc
+  * Perhaps loot is generated more frequently the deeper you dig enhancing the risk/reward trade-off
+  * Perhapse monsters are more dangerous the deeper you go
+* You are trying to avoid various monsters, critters, etc that if they touch you you drop your collection
+  * You can take x many hits before you die
+  * Think sonic with flashing invincibility frames
+* Your loot is only safe when you reach the surface (or maybe other checkpoints)
+* Risk is noise you make (treasure, quickness, etc)
+  * Curse of avarice (more treasure the slower you go)
 
-### Perquisites
+## Todos
 
 * [x] Implement sound playing
 * [x] Implement collectables
@@ -42,16 +50,39 @@ Visit https://excaliburjs.com/REPO_NAME/ to play!
 * [x] Add social cards
 * [x] Wire up credits
 * [ ] Wire up gamepad
+* [ ] Bag full toast
+* [ ] Add title screen
+* [ ] Better Font
+* [ ] Add value floating number
+* [ ] Add social cards
+* [ ] Wire up credits/buttons
 
-Updating your local copy with `git pull -r` to rebase your local commits on top of upstream, makes the `main` easy to follow and merges less difficult.
+* [x] Art: Gems, Treasures, etc
+* [x] Art: Miner (Dwarf, Gnome, Multiple)
+* [ ] Art: Dirt Variety
+* [ ] Art: Shack or Treasure Chest
+* [x] Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 
-1. Clone the repo
+- Moles: Fill in mine shafts, priorities empty shafts, favor vertical
+- Snake/Worm: favor horizontal and veer toward you
+- Beetles: 50% random, 50% towards the player
+- Demon/Balrog: Easter egg? Game over screen? "You dug to greedily and too deep"
 
-        git clone https://github.com/excaliburjs/REPO_NAME.git
+### Stretch Goals
+* Rewards for collecting: 
+  - Upgrade you speed, 
+  - pick, 
+  - mining, 
+  - capacity, 
+  - defense,
+  - hearts
+  - warp to the top beacon
 
-2. Navigate into the root directory `REPO_NAME` in your favorite command line tool
+```sh
+npm create excalibur
+```
 
-3. Run the install to download the tools:
+## Getting Started
 
         npm install
 
@@ -67,3 +98,8 @@ Updating your local copy with `git pull -r` to rebase your local commits on top 
 
 #### Debugging tools
 
+1. [Generate a repository](https://github.com/excaliburjs/template-ts-vite/generate) from this template
+2. Modify the `package.json` with your own details
+3. Run `npm install` to install dependencies
+4. Run `npm run dev` to start the Vite server!
+5. Have fun!
