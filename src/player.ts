@@ -220,6 +220,7 @@ export class Player extends Actor {
     let dir = 0;
     for (let loot of this.pendingLoot) {
       loot.transform.coordPlane = CoordPlane.World;
+      loot.z = 11;
       loot.pos = this.pos;
       const spreadDist = Config.LootSpreadDistance;
       const spreadPos = this.pos.add(vec(Math.cos(dir) * spreadDist, Math.sin(dir) * spreadDist));
@@ -266,10 +267,11 @@ export class Player extends Actor {
       maybeLoot.transform.coordPlane = CoordPlane.Screen;
       maybeLoot.transform.pos = screenPos;//this.scene!.engine.screen.contentArea.center.sub(vec(2 * 64, 32));// screenPos;
       maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);
+      maybeLoot.z = 13;
       maybeLoot.playPickup();
 
       maybeLoot.actions.moveTo({
-        pos: vec(100 + this.random.integer(-32, 32), 100 + this.random.integer(0, 64)),
+        pos: vec(100 + this.random.integer(-32, 6 * 32), 100 + this.random.integer(0, 50)),
         easing: EasingFunctions.EaseInOutCubic,
         duration: 1000
       }).callMethod(() => {

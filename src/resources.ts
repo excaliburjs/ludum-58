@@ -10,7 +10,9 @@ export const Resources = {
   Dirt: new ImageSource("./images/dirt_front.png"),
   BackgroundDirt: new ImageSource("./images/dirt_back.png"),
   Grass: new ImageSource("./images/grass.png"),
+  Grass2: new ImageSource("./images/grass tile.png"),
   ChestImage: new ImageSource('./images/chest.png'),
+  UIBox: new ImageSource('./images/ui box 02.png'),
 
   BeetleImage: new ImageSource("./images/beetle.png"),
   BeetleImage1: new ImageSource('./images/beetle1.png'),

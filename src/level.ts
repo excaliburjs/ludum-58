@@ -136,7 +136,7 @@ export class DigLevel extends Scene {
       coordPlane: CoordPlane.Screen,
       font: Resources.Font.toFont({
         textAlign: TextAlign.Left,
-        color: Color.White,
+        color: Color.Black,
         size: 20
       }),
       z: 12
