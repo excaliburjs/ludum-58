@@ -5,6 +5,6 @@ sha=$(git rev-parse HEAD)
 
 echo "$shashort $sha"
 
-sed -i "s/commitRefShort/$shashort/" index.html
+sed -i "s/commitRefShort/$shashort/g" index.html
 
-sed -i "s/commitRef/$sha/" index.html
+sed -i "s/commitRef/$sha/g" index.html

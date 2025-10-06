@@ -16,7 +16,7 @@ canvas {
   transform: translate(-50%, -50%);
 }
 
-#commitRef {
+#commit-ref {
   position: absolute;
   bottom: 3px;
   right: 3px;
