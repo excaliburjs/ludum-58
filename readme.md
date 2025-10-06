@@ -34,14 +34,12 @@
 * [x] Better Font
 * [x] Bag full toast
 * [x] bug enemies can make it to row 0
-* [ ] HUD background
+* [x] HUD background
 * [ ] Add shop
 * [ ] Fix audio buttons
 * [ ] Spruce game over screen
 * [ ] Add 5 layers of dirt (with corresponding)
-* [ ] Add fighting certain enemies
 * [ ] Add graph of treasure collected over time/events
-   - Shareable on Socials
 * [ ] Add high score
 
 ## Low Priority
@@ -49,12 +47,12 @@
 * [ ] Add value floating number
 * [ ] Add toggle for input type
 * [x] Add social cards
+   - Shareable on Socials
 * [x] Wire up credits
 * [ ] Wire up gamepad
 * [ ] Bag full toast
 * [ ] Add title screen
-* [ ] Wire up credits/buttons
-
+* [ ] Add fighting certain enemies
 * [x] Art: Gems, Treasures, etc
 * [x] Art: Miner (Dwarf, Gnome, Multiple)
 * [ ] Art: Dirt Variety

@@ -1,4 +1,4 @@
-import { PointerComponent, Random, Sprite, TileMap, vec } from "excalibur";
+import { Animation, AnimationStrategy, PointerComponent, Random, range, Sprite, SpriteSheet, TileMap, vec } from "excalibur";
 import { Resources } from "./resources";
 import { Collectable } from "./collectable";
 
@@ -26,12 +26,21 @@ export class GroundGenerator {
   dirtFront: Sprite;
   dirtBack: Sprite;
   player!: Player;
-  grass: Sprite;
+  grass: Animation;
 
   constructor(private scene: DigLevel, private random: Random) {
     this.dirtFront = Resources.Dirt.toSprite();
     this.dirtBack = Resources.BackgroundDirt.toSprite();
-    this.grass = Resources.Grass.toSprite();
+    // this.grass = Resources.Grass.toSprite();
+    const grassSpriteSheet = SpriteSheet.fromImageSourceWithSourceViews({
+      image: Resources.Grass2,
+      sourceViews: [
+        { x: 0, y: 100 - 32, width: 64, height: 32 },
+        { x: 0, y: 100 - 32 * 2 - 3, width: 64, height: 32 },
+        { x: 0, y: 100 - 32 * 3 - 3 - 3, width: 64, height: 32 },
+      ]
+    });
+    this.grass = Animation.fromSpriteSheet(grassSpriteSheet, range(0, 2), 1000, AnimationStrategy.Loop);
     this.startChunk.removeComponent(PointerComponent);
     this.chunkMap.set('0+0', this.startChunk);
   }
