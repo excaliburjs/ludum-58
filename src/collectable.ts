@@ -1,5 +1,5 @@
-import { Actor, Color, PointerComponent, Rectangle, vec } from "excalibur";
-import { GroundGenerator } from "./ground";
+import { Actor, PointerComponent, vec } from "excalibur"; import {
+  GroundGenerator } from "./ground";
 import Config from './config';
 import { soundManager } from "./sound-manager-2";
 import { Resources } from "./resources";

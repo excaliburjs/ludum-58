@@ -31,6 +31,9 @@
 * [x] Add Enemies that increase in frequences
 * [x] Different enemy behavior
 * [x] Add silver/gold sprites
+* [ ] Bag full toast
+* [ ] Better Font
+* [ ] HUD background
 * [ ] Add shop
 * [ ] Fix audio buttons
 * [ ] Spruce game over screen
@@ -41,10 +44,9 @@
 * [ ] Add high score
 
 ## Low Priority
-* [ ] Bag full toast
 * [ ] Add title screen
-* [ ] Better Font
 * [ ] Add value floating number
+* [ ] Add toggle for input type
 * [x] Add social cards
 * [x] Wire up credits
 * [ ] Wire up gamepad
