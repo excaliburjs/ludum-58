@@ -7,8 +7,8 @@ import { Resources } from "./resources";
 const Green = Resources.CommonImage.toSprite();
 const Blue = Resources.UncommonImage.toSprite();
 const Red = Resources.RareImage.toSprite();
-const Silver = new Rectangle({ color: Color.LightGray, width: 32, height: 32 })
-const Gold = new Rectangle({ color: Color.Yellow, width: 32, height: 32 })
+const Silver = Resources.VeryRareImage.toSprite();
+const Gold = Resources.LegendaryImage.toSprite();
 
 export type CollectableType = 'green' | 'blue' | 'red' | 'silver' | 'gold'
 

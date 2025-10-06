@@ -19,8 +19,8 @@ export const Resources = {
   CommonImage: new ImageSource('./images/emerald.png'),
   UncommonImage: new ImageSource('./images/diamond.png'),
   RareImage: new ImageSource('./images/ruby.png'),
-  // VeryRareImage: new ImageSource('./images/diamond.png'),
-  // LegendaryImage: new ImageSource('./images/diamond.png'),
+  VeryRareImage: new ImageSource('./images/silver.png'),
+  LegendaryImage: new ImageSource('./images/gold.png'),
   Heart: new ImageSource("./images/heart.png"),
 
   PlayerIdle: new ImageSource("./images/dwarf_idle.png"),
