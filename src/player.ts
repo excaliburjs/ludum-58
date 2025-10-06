@@ -259,14 +259,16 @@ export class Player extends Actor {
 
       this.pendingLoot.push(maybeLoot);
       futureTile.data.delete('loot');
-      const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(maybeLoot.pos);
+      const screenPos = this.scene!.engine.screen.worldToScreenCoordinates(futureTile.pos.add(vec(32, 32)));
+      screenPos.x -= this.scene!.engine.screen.contentArea.left;
+      screenPos.y -= this.scene!.engine.screen.contentArea.top;
       maybeLoot.transform.coordPlane = CoordPlane.Screen;
-      maybeLoot.transform.pos = screenPos;
+      maybeLoot.transform.pos = screenPos;//this.scene!.engine.screen.contentArea.center.sub(vec(2 * 64, 32));// screenPos;
       maybeLoot.angularVelocity = this.random.floating(-Math.PI, Math.PI);
       maybeLoot.playPickup();
 
       maybeLoot.actions.moveTo({
-        pos: vec(100 + this.random.integer(-15, 15), 100 + this.random.integer(-15, 15)),
+        pos: vec(100 + this.random.integer(-32, 32), 100 + this.random.integer(0, 64)),
         easing: EasingFunctions.EaseInOutCubic,
         duration: 1000
       }).callMethod(() => {

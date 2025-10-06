@@ -11,7 +11,7 @@ export class Health extends Actor {
       pos: vec(0, 0),
       coordPlane: CoordPlane.Screen,
       scale: vec(2, 2),
-      z: 11,
+      z: 12,
     });
 
     this.heartSprite = Resources.Heart.toSprite();
