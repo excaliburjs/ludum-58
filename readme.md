@@ -38,6 +38,7 @@
 * [ ] Add high score
 
 ## Low Priority
+* [ ] Bag full toast
 * [ ] Add title screen
 * [ ] Better Font
 * [ ] Add value floating number

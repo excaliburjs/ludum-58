@@ -165,7 +165,7 @@ export class Player extends Actor {
       loot.actions
         .delay(delay += 70)
         .moveTo({
-          pos: vec(this.scene!.engine.screen.getScreenBounds().width - 20, 20),
+          pos: vec(this.level.engine.screen.contentArea.width - 64, 20 + 64),
           easing: EasingFunctions.EaseInOutCubic,
           duration: 200
         }).callMethod(() => {
