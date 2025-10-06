@@ -1,7 +1,10 @@
-import { ImageSource, Loader, Sound, SpriteSheet } from "excalibur";
+import { FontSource, ImageSource, Loader, Sound, SpriteSheet } from "excalibur";
+import pixelFont from '../src/font/PressStart2P-Regular.ttf?url'
 
 // It is convenient to put your resources in one place
 export const Resources = {
+  Font: new FontSource(pixelFont, "PressStart2P"),
+
   // Images
   Sword: new ImageSource("./images/sword.png"),
   Dirt: new ImageSource("./images/dirt_front.png"),

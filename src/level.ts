@@ -1,5 +1,6 @@
 import {
   AudioContextFactory,
+  Color,
   CoordPlane,
   DefaultLoader,
   Engine,
@@ -112,9 +113,10 @@ export class DigLevel extends Scene {
       pos: vec(engine.screen.contentArea.width - 20, 20),
       text: 'Score: 0',
       coordPlane: CoordPlane.Screen,
-      font: new Font({
+      font: Resources.Font.toFont({
         textAlign: TextAlign.Right,
-        size: 30
+        color: Color.White,
+        size: 20
       }),
       z: 12
     });
@@ -122,12 +124,13 @@ export class DigLevel extends Scene {
 
 
     this.gembagLabel = new Label({
-      pos: vec(20, 45),
+      pos: vec(20, 50),
       text: `Gem Bag 0/${player.capacity}`,
       coordPlane: CoordPlane.Screen,
-      font: new Font({
+      font: Resources.Font.toFont({
         textAlign: TextAlign.Left,
-        size: 30
+        color: Color.White,
+        size: 20
       }),
       z: 12
     });
