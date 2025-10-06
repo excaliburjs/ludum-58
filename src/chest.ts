@@ -13,7 +13,7 @@ export class Chest extends Actor {
       pos: worldPosFromTile,
       width: 64,
       height: 64,
-      z: 10,
+      z: 0,
       anchor: vec(0, 0),
     });
     this.removeComponent(PointerComponent);

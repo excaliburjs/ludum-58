@@ -184,6 +184,7 @@ export class Enemy extends Actor {
   moveInDirection(direction: Vector) {
     const newTileCoord = direction.add(vec(this.tileX, this.tileY));
     const futureTile = this.ground.getTile(newTileCoord.x, newTileCoord.y);
+    if (futureTile?.y === 0) return;
 
     // If the tile is off grid don't move
     if (futureTile) {

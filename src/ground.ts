@@ -26,10 +26,12 @@ export class GroundGenerator {
   dirtFront: Sprite;
   dirtBack: Sprite;
   player!: Player;
+  grass: Sprite;
 
   constructor(private scene: DigLevel, private random: Random) {
     this.dirtFront = Resources.Dirt.toSprite();
     this.dirtBack = Resources.BackgroundDirt.toSprite();
+    this.grass = Resources.Grass.toSprite();
     this.startChunk.removeComponent(PointerComponent);
     this.chunkMap.set('0+0', this.startChunk);
   }
@@ -137,6 +139,7 @@ export class GroundGenerator {
       const tile = newChunk.tiles[i];
       if (tile.y === 0 && chunkY === 0) {
         tile.data.set('dug', true);
+        tile.addGraphic(this.grass);
       } else {
         tile.addGraphic(this.dirtFront);
         tile.solid = true;
@@ -159,6 +162,7 @@ export class GroundGenerator {
       const tile = this.startChunk.tiles[i];
       if (tile.y === 0) {
         tile.data.set('dug', true);
+        tile.addGraphic(this.grass);
       } else {
         tile.addGraphic(this.dirtFront);
         tile.solid = true;
