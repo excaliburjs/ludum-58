@@ -54,7 +54,8 @@ export class Shop extends LitElement {
                 display: flex;
                 flex-direction: column;
                 align-items: normal;
-                background-color: white;
+                background-color: #e4d2aa;
+                border: solid 2px #5a4e44;
                 border-radius: 5px;
                 color: black;
                 padding: .5rem;
@@ -65,8 +66,13 @@ export class Shop extends LitElement {
             }
 
             h2 {
+              text-align: center;
               font-size: 16px;
+            }
 
+            button {
+                font-family: "PressStart2P", sans-serif;
+                padding: 5px;
             }
 
             .container {
