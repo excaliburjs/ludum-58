@@ -28,7 +28,23 @@ export default defineConfig({
         { find: 'excalibur', replacement: path.resolve('./vendor/excalibur/build/esm/excalibur.js') },
       ]
     }),
-    tiledPlugin(), posthtml()], // hint vite that tiled tilesets should be treated as external
+    tiledPlugin(),// hint vite that tiled tilesets should be treated as external
+    posthtml({
+      options: {
+        expressions: {
+          locals: {
+            commitRef() {
+              return process.env.GITHUB_SHA || "local";
+            },
+            commitRefShort() {
+              return (process.env.GITHUB_SHA || "local").substring(0, 7)
+            }
+          }
+        }
+      }
+
+    })
+  ], 
   // currently excalibur plugins are commonjs
   // this forces vite to keep things from bundling ESM together with commonjs
   optimizeDeps: {

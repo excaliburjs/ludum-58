@@ -37,7 +37,6 @@
     "@types/storejs": "2.0.3",
     "@types/zepto": "1.0.36",
     "@vituum/vite-plugin-posthtml": "1.1.0",
-    "posthtml-expressions": "1.11.3",
     "typescript": "5.9.3",
     "vite": "6.3.6"
   }
