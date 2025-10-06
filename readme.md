@@ -60,7 +60,7 @@
 * [x] Art: Gems, Treasures, etc
 * [x] Art: Miner (Dwarf, Gnome, Multiple)
 * [ ] Art: Dirt Variety
-* [ ] Art: Shack or Treasure Chest
+* [x] Art: Shack or Treasure Chest
 * [x] Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 
 - Moles: Fill in mine shafts, priorities empty shafts, favor vertical
