@@ -31,14 +31,14 @@ export class GameOver extends LitElement {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                background-color: #42550077;
+                background-color: #425500aa;
                 border-radius: 5px;
                 color: white;
                 padding: .5rem;
                 gap: 15px;
                 font-size: 24px;
                 // transform-origin: 0 0;
-                transform: translate(-50%, 200%) scale(calc(var(--ex-pixel-ratio)), calc(var(--ex-pixel-ratio)));
+                transform: translate(-50%, 50%) scale(calc(var(--ex-pixel-ratio)), calc(var(--ex-pixel-ratio)));
             }`;
 
   level!: DigLevel;
@@ -59,7 +59,9 @@ export class GameOver extends LitElement {
     <div class="container" style=${styleMap(styles)}>
       <h1>Game Over</h1>
 
-      <button>Brag on Socials</button>
+      <p>You fear to go into those mines. You delved too greedily and too deep...</p>
+
+      <a href="https://ldjam.com/events/ludum-dare/58/$416081">Rate our LD GAME!</a>
 
       <button @click=${this.restartGame}>Try Again?</button>
     </div>`;
