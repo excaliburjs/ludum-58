@@ -35,9 +35,9 @@
 * [x] Bag full toast
 * [x] bug enemies can make it to row 0
 * [x] HUD background
-* [ ] Add shop
+* [x] Add shop
 * [ ] Fix audio buttons
-* [ ] Spruce game over screen
+* [x] Spruce game over screen
 * [ ] Add high score
 
 ## Low Priority

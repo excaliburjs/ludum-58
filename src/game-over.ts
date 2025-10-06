@@ -59,6 +59,8 @@ export class GameOver extends LitElement {
     <div class="container" style=${styleMap(styles)}>
       <h1>Game Over</h1>
 
+      <h2>Loot: ${this.level.player.score}</h2>
+
       <p>You fear to go into those mines. You delved too greedily and too deep...</p>
 
       <a href="https://ldjam.com/events/ludum-dare/58/$416081">Rate our LD GAME!</a>
