@@ -6,14 +6,34 @@ export const Resources = {
   Sword: new ImageSource("./images/sword.png"),
   Dirt: new ImageSource("./images/dirt_front.png"),
   BackgroundDirt: new ImageSource("./images/dirt_back.png"),
+
   BeetleImage: new ImageSource("./images/beetle.png"),
+  BeetleImage1: new ImageSource('./images/beetle1.png'),
+  BeetleImage2: new ImageSource('./images/beetle2.png'),
+  WormImage1: new ImageSource('./images/sandworm1.png'),
+  WormImage2: new ImageSource('./images/sandworm2.png'),
+  MoleImage1: new ImageSource('./images/mole1.png'),
+  MoleImage2: new ImageSource('./images/mole2.png'),
+
+
+  CommonImage: new ImageSource('./images/emerald.png'),
+  UncommonImage: new ImageSource('./images/diamond.png'),
+  RareImage: new ImageSource('./images/ruby.png'),
+  // VeryRareImage: new ImageSource('./images/diamond.png'),
+  // LegendaryImage: new ImageSource('./images/diamond.png'),
   Heart: new ImageSource("./images/heart.png"),
+
+  PlayerIdle: new ImageSource("./images/dwarf_idle.png"),
+  PlayerWalk1: new ImageSource("./images/dwarf_walk1.png"),
+  PlayerWalk2: new ImageSource("./images/dwarf_walk2.png"),
+  PlayerMine1: new ImageSource("./images/dwarf_mine1.png"),
+  PlayerMine2: new ImageSource("./images/dwarf_mine2.png"),
 
   // Sound Effects
   Projectile: new Sound('./sounds/template-sample-sound-projectile.mp3'),
-  GetCommon:   new Sound('./sounds/get_common.mp3'),
+  GetCommon: new Sound('./sounds/get_common.mp3'),
   GetUncommon: new Sound('./sounds/get_uncommon.mp3'),
-  GetRare:     new Sound('./sounds/get_rare.mp3'),
+  GetRare: new Sound('./sounds/get_rare.mp3'),
   GetVeryRare: new Sound('./sounds/get_veryrare.mp3'),
   GetLegendary: new Sound('./sounds/get_legendary.mp3'),
 

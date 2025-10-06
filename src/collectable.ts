@@ -2,10 +2,11 @@ import { Actor, Color, PointerComponent, Rectangle, vec } from "excalibur";
 import { GroundGenerator } from "./ground";
 import Config from './config';
 import { soundManager } from "./sound-manager-2";
+import { Resources } from "./resources";
 
-const Green = new Rectangle({ color: Color.Green, width: 32, height: 32 })
-const Blue = new Rectangle({ color: Color.Blue, width: 32, height: 32 })
-const Red = new Rectangle({ color: Color.Red, width: 32, height: 32 })
+const Green = Resources.CommonImage.toSprite();
+const Blue = Resources.UncommonImage.toSprite();
+const Red = Resources.RareImage.toSprite();
 const Silver = new Rectangle({ color: Color.LightGray, width: 32, height: 32 })
 const Gold = new Rectangle({ color: Color.Yellow, width: 32, height: 32 })
 

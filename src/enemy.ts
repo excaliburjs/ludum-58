@@ -1,6 +1,6 @@
 import { Actor, Animation, AnimationStrategy, EasingFunctions, Engine, PointerComponent, Random, RotationType, vec, Vector } from "excalibur";
 import { GroundGenerator } from "./ground";
-import { BeetleSheet } from "./resources";
+import { BeetleSheet, Resources } from "./resources";
 import { Player } from "./player";
 import { soundManager } from "./sound-manager-2";
 import { DigLevel } from "./level";
@@ -26,12 +26,22 @@ export class Enemy extends Actor {
       // acc: vec(0, 400)
     });
 
-    this.animation = Animation.fromSpriteSheet(
-      BeetleSheet,
-      [0, 1, 2],
-      100,
-      AnimationStrategy.PingPong
-    );
+    // this.animation = Animation.fromSpriteSheet(
+    //   BeetleSheet,
+    //   [0, 1, 2],
+    //   100,
+    //   AnimationStrategy.PingPong
+    // );
+
+    this.animation = new Animation({
+      frames: [
+        { graphic: Resources.BeetleImage1.toSprite() },
+        { graphic: Resources.BeetleImage2.toSprite() }
+      ],
+      frameDuration: 150,
+      strategy: AnimationStrategy.Loop
+    });
+
     this.graphics.use(this.animation);
     this.removeComponent(PointerComponent);
   }
@@ -101,7 +111,7 @@ export class Enemy extends Actor {
       }
       this.actions
         .rotateTo(
-          Math.atan2(direction.y, direction.x),
+          Math.atan2(direction.y, direction.x) + Math.PI,
           Math.PI * 4,
           RotationType.ShortestPath)
         .easeTo(

@@ -1,5 +1,7 @@
 import {
   Actor,
+  Animation,
+  AnimationStrategy,
   Collider,
   CollisionContact,
   Color,
@@ -11,6 +13,7 @@ import {
   PointerComponent,
   Random,
   Side,
+  Sprite,
   Tile,
   vec,
   Vector
@@ -20,9 +23,11 @@ import { Collectable } from "./collectable";
 import { soundManager } from "./sound-manager-2";
 import Config from './config';
 import { DigLevel } from "./level";
+import { Resources } from "./resources";
 
 export class Player extends Actor {
   dir: Vector = Vector.Right;
+  facingRight = true;
   moving: boolean = false;
   pendingLoot: Collectable[] = [];
   health: number = Config.Starting.health;
@@ -35,6 +40,9 @@ export class Player extends Actor {
   right!: Actor;
   up!: Actor;
   down!: Actor;
+  idle: Sprite;
+  walk: Animation;
+  mine: Animation;
   constructor(public level: DigLevel, public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
@@ -44,9 +52,29 @@ export class Player extends Actor {
       height: 64,
       color: Color.Blue,
       z: 10,
-      anchor: vec(0, 0), 
+      anchor: vec(0, 0),
     });
     this.removeComponent(PointerComponent);
+
+    this.idle = Resources.PlayerIdle.toSprite();
+    this.walk = new Animation({
+      frames: [
+        { graphic: Resources.PlayerWalk1.toSprite() },
+        { graphic: Resources.PlayerWalk2.toSprite() },
+      ],
+      frameDuration: 100
+    });
+    this.walk.strategy = AnimationStrategy.Loop;
+
+    this.mine = new Animation({
+      frames: [
+        { graphic: Resources.PlayerMine1.toSprite() },
+        { graphic: Resources.PlayerMine2.toSprite() },
+      ],
+      frameDuration: 100
+    });
+    this.mine.strategy = AnimationStrategy.Loop;
+
   }
 
   override onInitialize(engine: Engine) {
@@ -59,6 +87,8 @@ export class Player extends Actor {
     this.addChild(this.right);
     this.addChild(this.up);
     this.addChild(this.down);
+
+    this.graphics.use(this.idle);
 
     this.left.on('pointerdown', () => this.moveInDirection(Vector.Left));
     this.left.on('pointermove', () => this.moveInDirection(Vector.Left));
@@ -76,11 +106,13 @@ export class Player extends Actor {
         case Keys.Left:
         case Keys.H:
           dir = Vector.Left;
+          this.facingRight = false;
           break;
         case Keys.D:
         case Keys.Right:
         case Keys.L:
           dir = Vector.Right;
+          this.facingRight = true;
           break;
         case Keys.S:
         case Keys.Down:
@@ -97,6 +129,33 @@ export class Player extends Actor {
       }
       this.dir = dir;
       this.moveInDirection(dir);
+    });
+
+    engine.input.keyboard.on("release", (evt) => {
+      switch (evt.key) {
+        case Keys.A:
+        case Keys.Left:
+        case Keys.H:
+          this.facingRight = false;
+          break;
+        case Keys.D:
+        case Keys.Right:
+        case Keys.L:
+          this.facingRight = true;
+          break;
+        case Keys.S:
+        case Keys.Down:
+        case Keys.J:
+          break;
+        case Keys.W:
+        case Keys.Up:
+        case Keys.K:
+          break;
+        default:
+          return;
+      }
+      this.idle.flipHorizontal = this.facingRight;
+      this.graphics.use(this.idle);
     });
   }
 
@@ -164,8 +223,8 @@ export class Player extends Actor {
       loot.pos = this.pos;
       const spreadDist = Config.LootSpreadDistance;
       const spreadPos = this.pos.add(vec(Math.cos(dir) * spreadDist, Math.sin(dir) * spreadDist));
-      const nearestTileX = Math.floor((spreadPos.x - this.ground.worldOrigin.x)/64);
-      const nearestTileY = Math.floor((spreadPos.y - this.ground.worldOrigin.y)/64);
+      const nearestTileX = Math.floor((spreadPos.x - this.ground.worldOrigin.x) / 64);
+      const nearestTileY = Math.floor((spreadPos.y - this.ground.worldOrigin.y) / 64);
       const maybeTile = this.ground.getTile(nearestTileX, nearestTileY);
 
       loot.actions
@@ -179,7 +238,7 @@ export class Player extends Actor {
           }
           if (maybeTile?.data.get('loot')) {
             loot.kill();
-          }else {
+          } else {
             maybeTile?.data.set('loot', loot);
           }
         });
@@ -240,6 +299,12 @@ export class Player extends Actor {
 
       if (!isSlow) {
         soundManager.play('playerStep');
+        this.walk.flipHorizontal = this.facingRight ? true : false;
+        this.graphics.use(this.walk);
+      } else {
+        // TODO play mining sound
+        this.mine.flipHorizontal = this.facingRight ? true : false;
+        this.graphics.use(this.mine);
       }
       this.actions
         // .rotateTo(
