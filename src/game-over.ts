@@ -31,10 +31,11 @@ export class GameOver extends LitElement {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                background-color: #42002077;
+                background-color: #42550077;
                 border-radius: 5px;
                 color: white;
                 padding: .5rem;
+                gap: 15px;
                 font-size: 24px;
                 // transform-origin: 0 0;
                 transform: translate(-50%, 200%) scale(calc(var(--ex-pixel-ratio)), calc(var(--ex-pixel-ratio)));

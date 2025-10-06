@@ -22,6 +22,7 @@ import { Resources } from "./resources";
 import Config from './config';
 import { GameOver } from "./game-over";
 import { Toast } from "./toast";
+import { Shop } from "./shop-drawer";
 
 export class DigLevel extends Scene {
   public gameover = false;
@@ -32,6 +33,7 @@ export class DigLevel extends Scene {
   groundGenerator!: GroundGenerator;
   health!: Health;
   gameOverEl!: GameOver;
+  shopDrawEl!: Shop;
   bagFullToast!: Toast;
 
   triggerGameOver() {
@@ -74,6 +76,7 @@ export class DigLevel extends Scene {
     gameOverEl.level = this;
     this.gameOverEl = gameOverEl;
 
+
     const bagFullToast = new Toast("Bag Full! Return to Surface!");
     this.bagFullToast = bagFullToast;
     this.add(bagFullToast);
@@ -94,6 +97,13 @@ export class DigLevel extends Scene {
     const health = new Health();
     this.health = health;
     this.add(health);
+
+
+    const shopDrawerEl = document.getElementsByTagName('shop-drawer')[0]! as Shop;
+    shopDrawerEl.level = this;
+    shopDrawerEl.player = player;
+    shopDrawerEl.requestUpdate();
+    this.shopDrawEl = shopDrawerEl
 
     groundGenerator.generate(player);
     // groundGenerator.generateChunk(-1, 0);
@@ -163,6 +173,14 @@ export class DigLevel extends Scene {
   }
 
   override onPostUpdate(engine: Engine, elapsedMs: number): void {
+    this.shopDrawEl?.enable(this.player.tileY === 0);
+    const screen = engine.screen;
+
+    const shopPos = this.engine.screen.screenToPageCoordinates(vec(screen.contentArea.right - 220, 60 + screen.contentArea.top));
+    this.shopDrawEl.setPos(shopPos.x, shopPos.y);
+
+
+
     // Called after everything updates in the scene
     this.label.text = `Score ${this.player.score}`;
     this.gembagLabel.text = `Gem Bag: ${this.player.pendingLoot.length}/${this.player.capacity}`;

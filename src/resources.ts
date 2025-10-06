@@ -53,6 +53,11 @@ export const Resources = {
   BeetleHurt: new Sound('./sounds/beetle_hurt.mp3'),
   BeetleMove: new Sound('./sounds/beetle_move.mp3'),
 
+  // Shop
+  ShopOpen: new Sound('./sounds/shop_open.mp3'),
+  ShopClose: new Sound('./sounds/shop_close.mp3'),
+  ShopPurchase: new Sound('./sounds/purchase.mp3'),
+
   GameOver: new Sound('./sounds/gameover.mp3'),
 
   // Music

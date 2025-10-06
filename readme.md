@@ -38,24 +38,21 @@
 * [ ] Add shop
 * [ ] Fix audio buttons
 * [ ] Spruce game over screen
-* [ ] Add 5 layers of dirt (with corresponding)
-* [ ] Add graph of treasure collected over time/events
 * [ ] Add high score
 
 ## Low Priority
-* [ ] Add title screen
 * [ ] Add value floating number
-* [ ] Add toggle for input type
+* [ ] Add graph of treasure collected over time/events
+* [/] Add toggle for input type
 * [x] Add social cards
    - Shareable on Socials
 * [x] Wire up credits
-* [ ] Wire up gamepad
-* [ ] Bag full toast
-* [ ] Add title screen
-* [ ] Add fighting certain enemies
+* [/] Wire up gamepad
+* [x] Add title screen
+* [/] Add fighting certain enemies
 * [x] Art: Gems, Treasures, etc
 * [x] Art: Miner (Dwarf, Gnome, Multiple)
-* [ ] Art: Dirt Variety
+* [/] Art: Dirt Variety
 * [x] Art: Shack or Treasure Chest
 * [x] Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 

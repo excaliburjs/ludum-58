@@ -43,6 +43,8 @@ export class Player extends Actor {
   idle: Sprite;
   walk: Animation;
   mine: Animation;
+  digSpeed: number = 500;
+  walkSpeed: number = 150;
   constructor(public level: DigLevel, public tileX: number, public tileY: number, public ground: GroundGenerator, private random: Random) {
     const worldPosFromTile = ground.getTile(tileX, tileY)?.pos ?? vec(0, 0);
     super({
@@ -91,13 +93,13 @@ export class Player extends Actor {
     this.graphics.use(this.idle);
 
     this.left.on('pointerdown', () => this.moveInDirection(Vector.Left));
-    this.left.on('pointermove', () => this.moveInDirection(Vector.Left));
+    // this.left.on('pointermove', () => this.moveInDirection(Vector.Left));
     this.right.on('pointerdown', () => this.moveInDirection(Vector.Right));
-    this.right.on('pointermove', () => this.moveInDirection(Vector.Right));
+    // this.right.on('pointermove', () => this.moveInDirection(Vector.Right));
     this.up.on('pointerdown', () => this.moveInDirection(Vector.Up));
-    this.up.on('pointermove', () => this.moveInDirection(Vector.Up));
+    // this.up.on('pointermove', () => this.moveInDirection(Vector.Up));
     this.down.on('pointerdown', () => this.moveInDirection(Vector.Down));
-    this.down.on('pointermove', () => this.moveInDirection(Vector.Down));
+    // this.down.on('pointermove', () => this.moveInDirection(Vector.Down));
 
     engine.input.keyboard.on("hold", (evt) => {
       let dir = Vector.Down;
@@ -318,7 +320,7 @@ export class Player extends Actor {
         .easeTo(
           // Tile pos is the world pixel position of the tile
           futureTile.pos,
-          isSlow ? 500 : 150,
+          isSlow ? this.digSpeed : this.walkSpeed,
           EasingFunctions.EaseInOutCubic
         ).callMethod(() => {
           this.moving = false;
