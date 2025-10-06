@@ -48,6 +48,21 @@ export class GroundGenerator {
     return true;
   }
 
+
+  buryTile(x: number, y: number): boolean {
+    const tile = this.getTile(x, y);
+    if (tile) {
+      if (tile.data.get('dug')) {
+        tile.data.set('dug', false);
+        tile.clearGraphics();
+        tile.addGraphic(this.dirtFront);
+        // TODO play fill in sound
+      }
+      return true;
+    }
+    return true;
+  }
+
   shouldGenerate() {
     const screen = this.scene.engine.screen;
     const unsafeArea = this.scene.engine.screen.unsafeArea;

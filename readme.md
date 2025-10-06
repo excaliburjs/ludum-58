@@ -28,7 +28,8 @@
 * [x] Add Surface music
 * [x] Vendor excalibur
 * [x] Add game over screen
-* [ ] Add Enemies that increase in frequences
+* [x] Add Enemies that increase in frequences
+* [x] Different enemy behavior
 * [ ] Add shop
 * [ ] Add 5 layers of dirt (with corresponding)
 * [ ] Add fighting certain enemies
@@ -38,6 +39,7 @@
 
 ## Low Priority
 * [ ] Add title screen
+* [ ] Better Font
 * [ ] Add value floating number
 * [ ] Add social cards
 * [ ] Wire up credits/buttons
@@ -49,7 +51,7 @@
 * [x] Art: Enemies (Bug, Mole, Snake, Beetle, Worm, Balrog/Demon/Satan)
 
 - Moles: Fill in mine shafts, priorities empty shafts, favor vertical
-- Snake/Worm: favort horizontal and veer toward you
+- Snake/Worm: favor horizontal and veer toward you
 - Beetles: 50% random, 50% towards the player
 - Demon/Balrog: Easter egg? Game over screen? "You dug to greedily and too deep"
 

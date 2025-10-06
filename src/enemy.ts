@@ -64,7 +64,7 @@ export class Enemy extends Actor {
 
     this.graphics.use(this.beetleAnim);
 
-    switch(type) {
+    switch (type) {
       case 'beetle': this.graphics.use(this.beetleAnim); break;
       case 'worm': this.graphics.use(this.wormAnim); break;
       case 'mole': this.graphics.use(this.moleAnim); break;
@@ -79,25 +79,84 @@ export class Enemy extends Actor {
     this.addTag('ex.offscreen'); // Hack to keep all the bugs from suddenly playing move sounds
   }
 
+  closestDirTowardsPlayer() {
+    const playerDir = this.player.pos.add(vec(32, 32)).sub(this.pos).normalize();
+    let minDot = -999;
+    let minDir = this.random.pickOne(dirs);
+    for (let dir of dirs) {
+      const dot = playerDir.dot(dir);
+      if (dot > minDot) {
+        minDot = dot
+        minDir = dir;
+      }
+    }
+    return minDir;
+  }
+
+  pickDirectionBasedOnType(type: EnemyType) {
+    const dist = this.player.pos.sub(this.pos);
+    switch (type) {
+      case 'beetle': {
+        if (dist.magnitude < 4 * 64 && this.random.bool()) {
+          return this.closestDirTowardsPlayer();
+        }
+        return this.random.pickOne(dirs);
+      }
+      case 'mole': {
+        if (dist.magnitude < 3 * 64 && this.random.bool()) {
+          return this.closestDirTowardsPlayer();
+        }
+        for (let x = 1; x < 10; x++) {
+          const searchTileLeft = this.ground.getTile(this.tileX - x, this.tileY);
+          const searchTileRight = this.ground.getTile(this.tileX + x, this.tileY);
+          if (searchTileLeft?.data.get('dug')) {
+            return Vector.Left;
+          }
+          if (searchTileRight?.data.get('dug')) {
+            return Vector.Right;
+          }
+        }
+
+        if (this.random.bool(.85)) {
+          return this.random.pickOne([Vector.Up, Vector.Down])
+        } else {
+          return this.random.pickOne([Vector.Left, Vector.Right])
+        }
+
+      }
+      case 'worm': {
+        const dist = this.player.pos.sub(this.pos);
+        if (dist.magnitude < 7 * 64) {
+          if (this.tileX === this.player.tileX) {
+            if (dist.y > 0) {
+              return Vector.Down;
+            } else {
+              return Vector.Up;
+            }
+          }
+
+          if (dist.x > 0) {
+            return Vector.Right;
+          } else {
+            return Vector.Left;
+          }
+        }
+
+        if (this.random.bool(.85)) {
+          return this.random.pickOne([Vector.Left, Vector.Right])
+        } else {
+          return this.random.pickOne([Vector.Up, Vector.Down])
+        }
+      }
+      default: return this.random.pickOne(dirs);
+    }
+  }
+
   onPostUpdate(engine: Engine, elapsed: number): void {
     if (this.level.gameover) return;
     if (this.isOffScreen) return;
     if (!this.moving) {
-      const dist = this.player.pos.sub(this.pos);
-      if (dist.magnitude < 400 && this.random.bool()) {
-        const playerDir = this.player.pos.sub(this.pos).normalize();
-        let minDot = -999;
-        let minDir = dirs[0];
-        for (let dir of dirs) {
-          const dot = playerDir.dot(dir);
-          if (dot > minDot) {
-            minDot = dot
-            minDir = dir;
-          }
-        }
-        this.moveInDirection(minDir);
-      }
-      const newDir = this.random.pickOne(dirs);
+      const newDir = this.pickDirectionBasedOnType(this.type);
       this.moveInDirection(newDir);
     }
 
@@ -111,6 +170,14 @@ export class Enemy extends Actor {
 
         soundManager.play('beetleBite').then(() => this.attacking = false);
       }
+    }
+  }
+
+  getSpeedByType(type: EnemyType) {
+    switch(type) {
+      case 'beetle': return 500;
+      case 'worm': return 1000;
+      case 'mole': return 1500;
     }
   }
 
@@ -139,6 +206,9 @@ export class Enemy extends Actor {
       this.beetleAnim.flipHorizontal = this.facingRight;
       this.wormAnim.flipHorizontal = this.facingRight;
       this.moleAnim.flipHorizontal = this.facingRight;
+      if (this.type === 'mole') {
+        this.ground.buryTile(this.tileX, this.tileY);
+      }
 
       if (!this.isOffScreen) {
         soundManager.play('beetleMove');
@@ -153,7 +223,7 @@ export class Enemy extends Actor {
           futureTile.pos.add(vec(32, 32)),
           250,
           EasingFunctions.EaseInOutCubic
-        ).delay(500).callMethod(() => {
+        ).delay(this.getSpeedByType(this.type)).callMethod(() => {
           this.moving = false;
           const tile = this.ground.getTile(this.tileX, this.tileY);
           tile?.data.set('enemy', this);
