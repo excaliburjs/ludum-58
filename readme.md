@@ -38,7 +38,7 @@
 * [x] Add shop
 * [ ] Fix audio buttons
 * [x] Spruce game over screen
-* [ ] Add high score
+* [x] Add high score
 
 ## Low Priority
 * [ ] Add value floating number

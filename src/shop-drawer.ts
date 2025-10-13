@@ -114,9 +114,20 @@ export class Shop extends LitElement {
     }
   }
 
+
+  buyCapacity() {
+    if (this.player.score >= 600) {
+      this.player.capacity++;
+      this.player.score -= 600;
+      Resources.ShopPurchase.play(.5);
+    } else {
+      Resources.BagFull.play();
+    }
+  }
+
   buyWalkFaster() {
     if (this.player.score >= 2000) {
-      this.player.walkSpeed = Math.min(this.player.walkSpeed - 20, 50);
+      this.player.walkSpeed = Math.max(this.player.walkSpeed - 20, 50);
       this.player.score -= 2000;
       Resources.ShopPurchase.play(.5);
     } else {
@@ -127,7 +138,7 @@ export class Shop extends LitElement {
 
   buyFasterPick() {
     if (this.player.score >= 1000) {
-      this.player.digSpeed= Math.min(this.player.digSpeed - 100, 50);
+      this.player.digSpeed = Math.max(this.player.digSpeed - 100, 50);
       this.player.score -= 1000;
       Resources.ShopPurchase.play(.5);
     } else {
@@ -156,6 +167,7 @@ export class Shop extends LitElement {
       <h2>Upgrade Shop</h2>
 
       <button @click=${this.buyHeart}>Buy 1 Heart: 400</button>
+      <button @click=${this.buyCapacity}>Buy 1 Capacity: 600</button>
       <button @click=${this.buyFasterPick}>Buy Faster Pick: 1000</button>
       <button @click=${this.buyWalkFaster}>Buy Speed Walk: 2000</button>
     </div>
