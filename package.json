@@ -38,6 +38,6 @@
     "@types/zepto": "1.0.36",
     "@vituum/vite-plugin-posthtml": "1.1.0",
     "typescript": "5.9.3",
-    "vite": "6.3.6"
+    "vite": "6.4.1"
   }
 }
