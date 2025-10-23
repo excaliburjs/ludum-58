@@ -71,6 +71,7 @@ export class DigLevel extends Scene {
   }
 
   override onInitialize(engine: Engine): void {
+    this.physics.config.integration.onScreenOnly = true;
 
     const gameOverEl = document.getElementsByTagName('game-over')[0]! as GameOver;
     gameOverEl.level = this;
